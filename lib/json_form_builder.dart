@@ -1,4 +1,1 @@
-
-class JsonFormBuilder {
-
-}
+export 'src/builder.dart';

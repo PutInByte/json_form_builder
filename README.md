@@ -1,6 +1,6 @@
 # json_form_builder
 
-Powerfull Form Builder
+Powerful Form Builder
 
 ## Getting Started
 
