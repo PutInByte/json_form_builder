@@ -249,7 +249,6 @@ class _CupertinoPercentStepperState extends State<CupertinoPercentStepper> with 
 
     ];
 
-
     return Row(children: children);
 
   }

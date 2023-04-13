@@ -50,20 +50,17 @@ flutter:
   # adding or updating assets for this project.
   plugin:
     platforms:
-      android:
-        package: com.warioddly.json_form_builder
-        pluginClass: JsonFormBuilderPlugin
-      ios:
-        pluginClass: JsonFormBuilderPlugin
-      linux:
-        pluginClass: JsonFormBuilderPlugin
-      macos:
-        pluginClass: JsonFormBuilderPlugin
-      windows:
-        pluginClass: JsonFormBuilderPluginCApi
-      web:
-        pluginClass: JsonFormBuilderWeb
-        fileName: json_form_builder_web.dart
+        android:
+            package: com.warioddly.json_form_builder
+            pluginClass: JsonFormBuilderPlugin
+        ios:
+            pluginClass: JsonFormBuilderPlugin
+        linux:
+            pluginClass: JsonFormBuilderPlugin
+        macos:
+            pluginClass: JsonFormBuilderPlugin
+        windows:
+            pluginClass: JsonFormBuilderPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
