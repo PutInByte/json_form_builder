@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:json_form_builder/src/contents/addons/sliver_persistant_header_delegate_addon.dart';
+import 'package:json_form_builder/src/contents/addons/persistant_header_delegate_addon.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class ContentLayout extends StatelessWidget {
