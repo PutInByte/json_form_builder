@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 class JsonFormBuilder extends StatefulWidget {
 
-  const JsonFormBuilder({ Key? key }) : super(key: key);
+  const JsonFormBuilder({ Key? key, required this.data }) : super(key: key);
+
+  final Map<String, dynamic> data;
 
   @override
   State<StatefulWidget> createState() => _JsonFormBuilderState();
-
 }
 
 class _JsonFormBuilderState extends State<JsonFormBuilder> {
+
+  Map<String, dynamic> get _data => widget.data;
 
   @override
   void initState() {
@@ -23,8 +26,7 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Text('hello 2');
   }
-
 
 }

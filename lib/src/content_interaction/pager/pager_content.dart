@@ -22,13 +22,12 @@
 
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
+import 'pager_children.dart';
+import 'pager_controller.dart';
 
-import 'page_viewer_children.dart';
-import 'page_viewer_controller.dart';
+class Pager extends StatefulWidget {
 
-class ContentPageViewer extends StatefulWidget {
-
-  const ContentPageViewer({
+  const Pager({
     Key? key,
     required this.controller,
     required this.children,
@@ -40,7 +39,7 @@ class ContentPageViewer extends StatefulWidget {
     }) : assert(children.length != 0, 'У вас нету дочерних страниц'), super(key: key);
 
 
-  final PageViewerController controller;
+  final PagerController controller;
 
   final List<dynamic> children;
 
@@ -56,15 +55,15 @@ class ContentPageViewer extends StatefulWidget {
 
 
   @override
-  _ContentPageViewerState createState() => _ContentPageViewerState();
+  State<StatefulWidget> createState() => _PagerState();
 }
 
-class _ContentPageViewerState extends State<ContentPageViewer> {
+class _PagerState extends State<Pager> {
 
 
   List<Widget> pages = [];
 
-  PageViewerController get controller => widget.controller;
+  PagerController get controller => widget.controller;
 
   int currentPage = 0;
 
@@ -75,9 +74,9 @@ class _ContentPageViewerState extends State<ContentPageViewer> {
     if (widget.children.runtimeType == List<Widget>) pages.addAll(widget.children as List<Widget>);
     else {
 
-      List<Widget>? _pages = getChildPages(widget.children as List<List<Widget>>);
+      List<Widget>? pages = getChildPages(widget.children as List<List<Widget>>);
 
-      if (_pages != null) pages.addAll(_pages);
+      if (pages != null) pages.addAll(pages);
 
     }
 
@@ -89,7 +88,7 @@ class _ContentPageViewerState extends State<ContentPageViewer> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.08),
             blurRadius: 14,
@@ -121,13 +120,13 @@ class _ContentPageViewerState extends State<ContentPageViewer> {
 
   List<Widget>? getChildPages (List<List<Widget>> children) {
 
-    List<Widget> _pages = [];
+    List<Widget> pages = [];
 
     for (int index = 0; index < controller.nestedControllers.length; index++) {
 
       if (children.length == index) break;
 
-      Widget pageView = PageViewerChildren(
+      Widget pageView = PagerChildren(
         controller: controller.nestedControllers[index],
         keepAlive: widget.keepAlive,
         changeParentPage: (int page, int pageLength, bool isNext) { },
@@ -141,11 +140,11 @@ class _ContentPageViewerState extends State<ContentPageViewer> {
         children: children[index]
       );
 
-      _pages.add(pageView);
+      pages.add(pageView);
 
     }
 
-    return _pages;
+    return pages;
 
   }
 

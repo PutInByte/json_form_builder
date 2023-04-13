@@ -23,9 +23,9 @@
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 
-class PageViewerChildren extends StatefulWidget {
+class PagerChildren extends StatefulWidget {
 
-  const PageViewerChildren({
+  const PagerChildren({
     Key? key,
     required this.controller,
     required this.children,
@@ -49,10 +49,10 @@ class PageViewerChildren extends StatefulWidget {
 
 
   @override
-  _PageViewerChildrenState createState() => _PageViewerChildrenState();
+  State<StatefulWidget> createState() => _PagerChildrenState();
 }
 
-class _PageViewerChildrenState extends State<PageViewerChildren> with AutomaticKeepAliveClientMixin {
+class _PagerChildrenState extends State<PagerChildren> with AutomaticKeepAliveClientMixin {
 
 
   @override

@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
-class PageViewerController {
+class PagerController {
 
   late final PageController controller;
   late final List<PageController> nestedControllers;
@@ -13,7 +13,7 @@ class PageViewerController {
   final VoidCallback? onChildNext;
   final VoidCallback? onPageEnd;
 
-  PageViewerController({
+  PagerController({
     required this.controller,
     required this.nestedControllers,
     this.pageScrollController,
