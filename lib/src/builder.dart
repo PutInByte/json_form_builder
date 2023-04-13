@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:json_form_builder/src/contents/drawers/layout_drawer.dart';
 import 'package:json_form_builder/src/models/json_model.dart';
-
 import 'addons/model_generate_addon.dart';
-import 'drawers/drawer.dart';
 
 class JsonFormBuilder extends StatefulWidget {
 
@@ -16,7 +15,6 @@ class JsonFormBuilder extends StatefulWidget {
 
 class _JsonFormBuilderState extends State<JsonFormBuilder> {
 
-
   Map<String, dynamic> get _data => widget.data;
 
   late final JsonModel _jsonModel;
@@ -29,25 +27,21 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
 
   }
 
-
   @override
   void dispose() {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
 
-    return ContentDrawer(
-      jsonModel: _jsonModel,
+    return const LayoutDrawer(
+      children: [
+        Text("data"),
+      ],
     );
 
   }
-
-
-
-
 
 
 }

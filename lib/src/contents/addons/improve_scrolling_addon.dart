@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ImproveScrolling extends StatefulWidget {
+class ImproveScrollAddon extends StatefulWidget {
 
-  const ImproveScrolling({ Key? key, required this.scrollController, this.onScroll, required this.child }) : super(key: key);
+  const ImproveScrollAddon({ Key? key, required this.scrollController, this.onScroll, required this.child }) : super(key: key);
 
   final ScrollController scrollController;
   final Function(double)? onScroll;
   final Widget child;
 
   @override
-  State<ImproveScrolling> createState() => _ImproveScrollingState();
+  State<ImproveScrollAddon> createState() => _ImproveScrollAddonState();
 }
 
-class _ImproveScrollingState extends State<ImproveScrolling> {
+class _ImproveScrollAddonState extends State<ImproveScrollAddon> {
 
   late double _maxScrollExtent = widget.scrollController.position.maxScrollExtent;
 
@@ -20,8 +20,7 @@ class _ImproveScrollingState extends State<ImproveScrolling> {
   void initState() {
     super.initState();
 
-    widget.scrollController
-      ..addListener(_scrollControllerListener);
+    widget.scrollController.addListener(_scrollControllerListener);
 
   }
 
@@ -44,8 +43,7 @@ class _ImproveScrollingState extends State<ImproveScrolling> {
 
   @override
   void dispose() {
-    widget.scrollController
-      ..removeListener(_scrollControllerListener);
+    widget.scrollController.removeListener(_scrollControllerListener);
     super.dispose();
   }
 

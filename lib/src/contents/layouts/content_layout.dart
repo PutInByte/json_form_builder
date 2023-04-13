@@ -6,8 +6,7 @@ class ContentLayout extends StatelessWidget {
 
   const ContentLayout({
     Key? key,
-    this.content,
-    this.scrollableContent,
+    this.children,
     this.floatingActionButton,
     this.scrollController,
     this.bottomAction,
@@ -22,8 +21,7 @@ class ContentLayout extends StatelessWidget {
   }) : super(key: key);
 
   final ScrollController? scrollController;
-  final List<Widget>? content;
-  final List<Widget>? scrollableContent;
+  final List<Widget>? children;
   final MainAxisAlignment scrollableContentAxis;
   final SliverPersistentHeader? progressBar;
   final Widget? pageTitle;
@@ -49,15 +47,6 @@ class ContentLayout extends StatelessWidget {
 
       if (appBar != null && pageTitle != null)
         throw FlutterError("[+] Вы должны инициализировать только один из виджетов (appBar != null && pageTitle != null) ");
-
-
-      if (scrollableContent != null && content != null)
-        throw FlutterError("[+] Вы должны инициализировать только один из виджетов (scrollableContent != null && content != null) ");
-
-
-      if (scrollableContent == null && content == null)
-        throw FlutterError("[+] Вы должны инициализировать один из виджетов (scrollableContent == null && content == null) ");
-
 
       return true;
     }());
@@ -141,23 +130,23 @@ class ContentLayout extends StatelessWidget {
           ),
 
 
-        if (content != null)
-          SliverToBoxAdapter(
-            child: Center(
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: CONTENT_MAX_WIDTH),
-                padding: EdgeInsets.symmetric(horizontal: contentPadding),
-                margin: EdgeInsets.symmetric(vertical: progressBar != null ? contentSize : 0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: content!,
-                ),
-              ),
-            ),
-          ),
+        // if (content != null)
+        //   SliverToBoxAdapter(
+        //     child: Center(
+        //       child: Container(
+        //         constraints: const BoxConstraints(maxWidth: CONTENT_MAX_WIDTH),
+        //         padding: EdgeInsets.symmetric(horizontal: contentPadding),
+        //         margin: EdgeInsets.symmetric(vertical: progressBar != null ? contentSize : 0),
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: content!,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
 
 
-        if (scrollableContent != null)
+        if (children != null)
           SliverFillRemaining(
             hasScrollBody: false,
             fillOverscroll: true,
@@ -168,7 +157,7 @@ class ContentLayout extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: progressBar != null ? contentSize : 0),
                 child: Column(
                   mainAxisAlignment: scrollableContentAxis,
-                  children: scrollableContent!,
+                  children: children!,
                 ),
               ),
             ),

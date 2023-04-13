@@ -226,7 +226,7 @@ class _CupertinoPercentStepperState extends State<CupertinoPercentStepper> with 
                               child: DefaultTextStyle(
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: widget.steps[i].state == StepState.editing ? Colors.white : Color.fromRGBO(15, 66, 176, 1),
+                                  color: widget.steps[i].state == StepState.editing ? Colors.white : const Color.fromRGBO(15, 66, 176, 1),
                                   fontSize: 14,
                                   overflow: TextOverflow.ellipsis,
                                   fontWeight: FontWeight.w400,
@@ -243,7 +243,7 @@ class _CupertinoPercentStepperState extends State<CupertinoPercentStepper> with 
         ),
 
         if (!_isLast(i))
-          Expanded(child: const SizedBox(height: 2)),
+          const Expanded(child: SizedBox(height: 2)),
 
       ],
 

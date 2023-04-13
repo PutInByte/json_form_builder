@@ -21,7 +21,7 @@ const double _kStepPadding = 8.0;
 const double _kStepSpacing = 12.0;
 const double _kStepFontSize = 20.0;
 const double _kTriangleHeight = _kStepSize * 0.866025;
-const Duration _kThemeAnimationDuration = const Duration(milliseconds: 200);
+const Duration _kThemeAnimationDuration = Duration(milliseconds: 200);
 
 
 class CupertinoStepper extends StatefulWidget {
@@ -127,7 +127,7 @@ class CupertinoStepper extends StatefulWidget {
   final ControlsWidgetBuilder? controlsBuilder;
 
   @override
-  _CupertinoStepperState createState() => _CupertinoStepperState();
+  State<StatefulWidget> createState() => _CupertinoStepperState();
 }
 
 class _CupertinoStepperState extends State<CupertinoStepper>
@@ -318,24 +318,24 @@ class _CupertinoStepperState extends State<CupertinoStepper>
         children: <Widget>[
           CupertinoButton(
             padding: EdgeInsets.zero,
+            onPressed: widget.onStepCancel,
             child: IntrinsicWidth(
               child: CupertinoDialogAction(
                 onPressed: widget.onStepCancel,
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
             ),
-            onPressed: widget.onStepCancel,
           ),
           CupertinoButton(
             padding: EdgeInsets.zero,
+            onPressed: widget.onStepContinue,
             child: IntrinsicWidth(
               child: CupertinoDialogAction(
                 isDefaultAction: true,
-                child: Text('Continue'),
                 onPressed: widget.onStepContinue,
+                child: const Text('Continue'),
               ),
             ),
-            onPressed: widget.onStepContinue,
           ),
         ],
       ),
@@ -530,7 +530,7 @@ class _CupertinoStepperState extends State<CupertinoStepper>
                 : null,
             child: Row(
               children: <Widget>[
-                Container(
+                SizedBox(
                   height: 72.0,
                   child: Center(
                     child: _buildIcon(i),

@@ -39,7 +39,7 @@ class BsSelectBoxController {
   /// to set selected value of [BsSelectBox]
   void setSelected(BsSelectBoxOption option) {
 
-    if (_selected == null) _selected = List<BsSelectBoxOption>.empty(growable: true);
+    _selected ??= List<BsSelectBoxOption>.empty(growable: true);
 
     if (!multiple) _selected = [option];
 
@@ -54,7 +54,7 @@ class BsSelectBoxController {
     if (_selected != null) {
       _selected!.removeAt(index);
 
-      if (_selected!.length == 0) clear();
+      if (_selected!.isEmpty) clear();
     }
   }
 
@@ -65,7 +65,7 @@ class BsSelectBoxController {
           .indexWhere((element) => element.getValue() == option.getValue());
       if (index != -1) _selected!.removeAt(index);
 
-      if (_selected!.length == 0) clear();
+      if (_selected!.isEmpty) clear();
     }
   }
 
@@ -80,11 +80,11 @@ class BsSelectBoxController {
   String getSelectedAsString() {
     if (_selected != null) {
       StringBuffer string = StringBuffer();
-      _selected!.forEach((option) {
-        string.write(option.getValueAsString() + ',');
-      });
+      for (var option in _selected!) {
+        string.write('${option.getValueAsString()},');
+      }
 
-      return string.toString().length == 0 ? ''
+      return string.toString().isEmpty ? ''
           : string.toString().substring(0, string.toString().length - 1);
     }
 

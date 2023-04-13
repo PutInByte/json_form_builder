@@ -91,7 +91,9 @@ class PagerController {
 
   void dispose() {
     controller.dispose();
-    nestedControllers.forEach((c) => c.dispose());
+    for (var c in nestedControllers) {
+      c.dispose();
+    }
   }
 
 }
