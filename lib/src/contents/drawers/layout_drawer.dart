@@ -3,7 +3,7 @@ import 'package:json_form_builder/src/contents/addons/improve_scrolling_addon.da
 import 'package:json_form_builder/src/contents/drawers/panel_drawer.dart';
 import '../addons/layout_addon.dart';
 import 'content_drawer.dart';
-import 'navigation_drawer.dart';
+import 'navigator_drawer.dart';
 
 class LayoutDrawer extends StatefulWidget {
 

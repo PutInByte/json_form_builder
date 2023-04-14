@@ -5,13 +5,15 @@ import 'package:json_form_builder/src/controllers/json_form_controller.dart';
 import 'package:json_form_builder/src/models/json_model.dart';
 import 'package:provider/provider.dart';
 import 'contents/drawers/content_drawer.dart';
-import 'contents/drawers/navigation_drawer.dart';
+import 'contents/drawers/navigator_drawer.dart';
+import 'utils/builder_config.dart';
 
 class JsonFormBuilder extends StatefulWidget {
 
-  const JsonFormBuilder({ Key? key, required this.data }) : super(key: key);
+  const JsonFormBuilder({ Key? key, required this.data, this.config }) : super(key: key);
 
   final Map<String, dynamic> data;
+  final BuilderConfig? config;
 
   @override
   State<StatefulWidget> createState() => _JsonFormBuilderState();
@@ -40,10 +42,13 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
 
     return ChangeNotifierProvider(
       create: (context) => controller,
-      child: const LayoutDrawer(
-        navigatorDrawer: NavigatorDrawer(),
-        contentDrawer: ContentDrawer(),
-        panelDrawer: PanelDrawer(),
+      child: BuilderConfigScope(
+        config: widget.config ?? const BuilderConfig(),
+        child: const LayoutDrawer(
+          navigatorDrawer: NavigatorDrawer(),
+          contentDrawer: ContentDrawer(),
+          panelDrawer: PanelDrawer(),
+        ),
       ),
     );
 

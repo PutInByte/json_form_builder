@@ -1,91 +1,88 @@
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:json_form_builder/src/controllers/navigator_controller.dart';
 import 'package:json_form_builder/src/utils/utils.dart';
 
-class PagerController {
+class PagerController extends ChangeNotifier {
 
-  late final PageController controller;
-  late final List<PageController> nestedControllers;
-  final ScrollController? pageScrollController;
-  final Function(bool, int, int)? onChanged;
-  final VoidCallback? onChildPrev;
-  final VoidCallback? onChildNext;
-  final VoidCallback? onPageEnd;
-
-  PagerController({
-    required this.controller,
-    required this.nestedControllers,
-    this.pageScrollController,
-    this.onChanged,
-    this.onPageEnd,
-    this.onChildNext,
-    this.onChildPrev,
-  });
+  final NavigatorController navigator = NavigatorController();
+  final PageController pageController = PageController(initialPage: 0, keepPage: true);
+  final Map<int, PageController> _nestedPageControllers = { };
 
 
-  PageController get currentChildController => nestedControllers[currentPage];
-  int get currentPage => controller.page?.toInt() ?? 0;
-  int get currentChildPage => currentChildController.page?.toInt() ?? 0;
-  int get pageCount => Utils.calculateCount(controller.positions);
-  int get childPageCount => Utils.calculateCount(currentChildController.positions);
+  VoidCallback? onChanged;
+  VoidCallback? onStart;
+  VoidCallback? onEnd;
 
 
-  void nextPage() => _changeChildPage(next: true);
+  bool _isChangingPage = false;
 
-  void prevPage() => _changeChildPage(next: false);
+  int get currentPage => Utils.getCurrentPage(pageController);
+
+  int get currentChildPage => Utils.getCurrentPage(_getNestedPageController(currentPage));
+
+  int get pageCount => Utils.calculatePageCount(pageController);
+
+  int get childPageCount => Utils.calculatePageCount(_getNestedPageController(currentPage));
 
 
-  void _changeChildPage({bool next = true}) {
+  Future<void> changePage({ bool next = true }) async {
 
-    if (next) {
-      if (currentChildPage < childPageCount) {
-        _changePage(currentChildController, true);
-        onChildNext?.call();
-      } else {
-        _changeParentPage(next: true);
-      }
-    } else {
-      if (currentChildPage > 0) {
-        _changePage(currentChildController, false);
-        onChildPrev?.call();
-      } else {
-        _changeParentPage(next: false);
-      }
-    }
-    pageScrollController?.animateTo(0, duration: const Duration(milliseconds: 320), curve: Curves.fastOutSlowIn);
+    if (_isChangingPage) return;
+
+    _isChangingPage = true;
+
+    final controller = currentChildPage < childPageCount ? _getNestedPageController(currentPage) : pageController;
+    final forward = next ? currentPage < controller.positions.last.maxScrollExtent : currentPage > controller.positions.first.minScrollExtent;
+
+    if (!forward) return;
+
+    await Utils.changePage(controller, next);
+
+    if (controller.position.pixels == controller.position.maxScrollExtent) _onPageEnd();
+    else if (controller.position.pixels == controller.position.minScrollExtent) _onPageStart();
+    else _onPageChanged(currentPage);
+
+    _isChangingPage = false;
 
   }
 
 
-  void _changeParentPage({bool next = true}) => _changePage(controller, next);
+  PageController getChildPageController(int index) => _getNestedPageController(index);
 
 
-  void _changePage(PageController controller, bool isNext) async {
-    final pageMethod = isNext ? controller.nextPage : controller.previousPage;
-    await pageMethod(duration: const Duration(milliseconds: 320), curve: Curves.fastOutSlowIn);
-    _onPageChanged(isNext);
+  PageController _getNestedPageController(int pageIndex) {
+    return _nestedPageControllers.putIfAbsent(pageIndex, () => PageController(keepPage: true, initialPage: 0));
   }
 
 
-  void _onPageChanged(bool isNext) {
-
-    onChanged?.call(isNext, currentChildPage, currentPage);
-
-    if (4 == currentPage + 1 && childPageCount + 1 == currentChildPage + 1) {
-      onPageEnd?.call();
-    }
-
+  void _onPageChanged(int index) {
+    debugPrint("onPageChanged($index);");
+    navigator.onChanges();
+    onChanged?.call();
   }
 
 
+  void _onPageStart() {
+    debugPrint("onPageStart();");
+    navigator.onStart();
+    onStart?.call();
+  }
 
 
+  void _onPageEnd() {
+    debugPrint("onPageEnd();");
+    navigator.onEnd();
+    onEnd?.call();
+  }
+
+
+  @override
   void dispose() {
-    controller.dispose();
-    for (var c in nestedControllers) {
-      c.dispose();
+    pageController.dispose();
+    for (var controller in _nestedPageControllers.values) {
+      controller.dispose();
     }
+    super.dispose();
   }
-
 
 }
