@@ -99,10 +99,10 @@ class BsSelectBox extends StatefulWidget {
 }
 
 class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  GlobalKey<State> _key = GlobalKey<State>();
-  GlobalKey<State> _keyOverlay = GlobalKey<State>();
+  final GlobalKey<State> _key = GlobalKey<State>();
+  final GlobalKey<State> _keyOverlay = GlobalKey<State>();
 
-  Duration duration = Duration(milliseconds: 100);
+  Duration duration = const Duration(milliseconds: 100);
   bool isOpen = false;
   late FocusNode _focusNode;
   late FocusNode _focusNodeKeyboard;
@@ -307,7 +307,7 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
 
           },
         builder: (FormFieldState<String> field) {
-          Future.delayed(Duration(milliseconds: 100), () {
+          Future.delayed(const Duration(milliseconds: 100), () {
             if (field.mounted && widget.controller.getSelectedAsString() != '')
               field.didChange(widget.controller.getSelectedAsString());
           });
@@ -325,9 +325,9 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
           if (isOpen)
             boxShadow = widget.style.focusedBoxShadow;
 
-          if (field.hasError && widget.style.focusedBoxShadow.length != 0)
+          if (field.hasError && widget.style.focusedBoxShadow.isNotEmpty)
             boxShadow = [
-              BoxShadow(
+              const BoxShadow(
                 color: BsColor.dangerShadow,
                 offset: Offset(0, 0),
                 spreadRadius: 2.5,
@@ -338,27 +338,25 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
             margin: widget.margin,
             child: Column(
               children: [
-                Container(
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      renderContainer(
-                        valid: !field.hasError,
-                        border: border,
-                        boxShadow: boxShadow,
-                        onChange: (value) => field.didChange(value),
-                      ),
-                      widget.hintTextLabel == null ? Container(width: 0, height: 0)
-                          : renderHintLabel(!field.hasError),
-                    ],
-                  ),
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    renderContainer(
+                      valid: !field.hasError,
+                      border: border,
+                      boxShadow: boxShadow,
+                      onChange: (value) => field.didChange(value),
+                    ),
+                    widget.hintTextLabel == null ? const SizedBox()
+                        : renderHintLabel(!field.hasError),
+                  ],
                 ),
                 !field.hasError ? Container() : Container(
-                  margin: EdgeInsets.only(top: 5.0, left: 2.0),
+                  margin: const EdgeInsets.only(top: 5.0, left: 2.0),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     field.errorText!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 12.0,
                         color: BsColor.textError
                     ),
@@ -393,7 +391,7 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
           onPressed: pressed,
           style: TextButton.styleFrom(
               padding: EdgeInsets.zero,
-              minimumSize: Size(10.0, 10.0)
+              minimumSize: const Size(10.0, 10.0)
           ),
           child: DefaultTextStyle(
             style: TextStyle(
@@ -411,7 +409,7 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
                   Expanded(
                       child: Container(
                         padding: widget.padding,
-                        child: widget.controller.getSelectedAll().length == 0 ? widget.hintText == null ? Text('') : Text(
+                        child: widget.controller.getSelectedAll().isEmpty ? widget.hintText == null ? const Text('') : Text(
                           widget.hintText!,
                           style: TextStyle(
                               color: valid ? widget.style.hintTextColor : Colors.red,
@@ -422,8 +420,8 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
                         ) : renderSelected(),
                       )
                   ),
-                  !isOpen ? Container(width: 0, height: 0) : Container(
-                    padding: EdgeInsets.all(5.0),
+                  !isOpen ? const SizedBox() : Container(
+                    padding: const EdgeInsets.all(5.0),
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(
@@ -435,8 +433,8 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
                       ),
                     ),
                   ),
-                  widget.controller.getSelected() == null ? Container(width: 0, height: 0) : Container(
-                    padding: EdgeInsets.all(5.0),
+                  widget.controller.getSelected() == null ? const SizedBox() : Container(
+                    padding: const EdgeInsets.all(5.0),
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(
@@ -449,7 +447,7 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(right: 10.0),
+                    margin: const EdgeInsets.only(right: 10.0),
                     child: Icon(widget.style.arrowIcon,
                       size: widget.size.fontSize,
                       color: valid ? widget.style.textColor : Colors.red,
@@ -478,7 +476,7 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
     if (widget.controller.multiple)
       widget.controller.getSelectedAll().forEach((option) {
         children.add(Container(
-            margin: EdgeInsets.only(right: 5.0, bottom: 1.0, top: 1.0),
+            margin: const EdgeInsets.only(right: 5.0, bottom: 1.0, top: 1.0),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
@@ -497,17 +495,17 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
                   updateState(() {});
                 },
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 2.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 2.0),
                   decoration: BoxDecoration(
                     color: widget.style.selectedColor,
-                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(50.0)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                          margin: EdgeInsets.only(right: 5.0),
+                          margin: const EdgeInsets.only(right: 5.0),
                           child: DefaultTextStyle(
                             style: TextStyle(
                               fontSize: widget.style.fontSize - 2,
@@ -572,7 +570,7 @@ class _BsSelectBoxState extends State<BsSelectBox> with SingleTickerProviderStat
               child: InkWell(
                 onTap: pressed,
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
                   decoration: BoxDecoration(
                       color: backgroundColor,
                       borderRadius: widget.style.borderRadius

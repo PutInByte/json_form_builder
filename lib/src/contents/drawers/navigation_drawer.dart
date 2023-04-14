@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-class LayoutDrawer extends StatelessWidget {
+class NavigatorDrawer extends StatefulWidget {
 
-  final Map<String, dynamic> data;
+  const NavigatorDrawer({ Key? key }) : super(key: key);
 
-  const LayoutDrawer({ Key? key, required this.data }) : super(key: key);
+  @override
+  State<StatefulWidget> createState() => _NavigatorDrawerState();
+}
 
-
+class _NavigatorDrawerState extends State<NavigatorDrawer> {
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +16,8 @@ class LayoutDrawer extends StatelessWidget {
     return Container();
 
   }
+
+
 
 
 }

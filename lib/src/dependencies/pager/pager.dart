@@ -22,34 +22,35 @@
 
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
-import 'pager_children.dart';
-import 'pager_controller.dart';
 
 class Pager extends StatefulWidget {
 
   const Pager({
     Key? key,
-    required this.controller,
     required this.children,
+    required this.controller,
     this.onPageChanged,
+    this.alignment = Alignment.center,
     this.onChildPageChanged,
     this.keepAlive = true,
+    this.animationDuration = const Duration(milliseconds: 300),
     this.physics = const AlwaysScrollableScrollPhysics(),
-    this.childPagePhysics = const AlwaysScrollableScrollPhysics(),
-    }) : assert(children.length != 0, 'У вас нету дочерних страниц'), super(key: key);
+  }) : assert(children.length != 0, 'У вас нету дочерних страниц'), super(key: key);
 
 
-  final PagerController controller;
+  final List<Widget> children;
 
-  final List<dynamic> children;
+  final PageController controller;
 
   final ScrollPhysics? physics;
 
   final bool keepAlive;
 
-  final ScrollPhysics? childPagePhysics;
+  final Alignment alignment;
 
-  final  ValueChanged<int>? onPageChanged;
+  final Duration animationDuration;
+
+  final ValueChanged<int>? onPageChanged;
 
   final Function(int, int)? onChildPageChanged;
 
@@ -59,28 +60,6 @@ class Pager extends StatefulWidget {
 }
 
 class _PagerState extends State<Pager> {
-
-
-  List<Widget> pages = [];
-
-  PagerController get controller => widget.controller;
-
-  int currentPage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.children.runtimeType == List<Widget>) pages.addAll(widget.children as List<Widget>);
-    else {
-
-      List<Widget>? pages = getChildPages(widget.children as List<List<Widget>>);
-
-      if (pages != null) pages.addAll(pages);
-
-    }
-
-  }
 
 
   @override
@@ -96,56 +75,21 @@ class _PagerState extends State<Pager> {
           ),
         ],
       ),
-      clipBehavior: Clip.hardEdge,
       child: ExpandablePageView(
         clipBehavior: Clip.antiAlias,
-        // alignment: Alignment.center,
-        controller: controller.controller,
-        onPageChanged: (int page) {
-
-          currentPage = page;
-
-          if (widget.onPageChanged != null)
-            widget.onPageChanged!(page);
-
-        },
-        animationDuration: const Duration(milliseconds: 300),
+        controller: widget.controller,
+        alignment: widget.alignment,
+        // onPageChanged: (int page) {
+        //
+        //   widget.onPageChanged?.call(page);
+        //
+        // },
+        animationDuration: widget.animationDuration,
         animateFirstPage: false,
         physics: widget.physics,
-        children: pages,
+        children: widget.children,
       ),
     );
-  }
-
-
-  List<Widget>? getChildPages (List<List<Widget>> children) {
-
-    List<Widget> pages = [];
-
-    for (int index = 0; index < controller.nestedControllers.length; index++) {
-
-      if (children.length == index) break;
-
-      Widget pageView = PagerChildren(
-        controller: controller.nestedControllers[index],
-        keepAlive: widget.keepAlive,
-        changeParentPage: (int page, int pageLength, bool isNext) { },
-        onPageChanged: (int page) {
-
-          if (widget.onChildPageChanged != null)
-            widget.onChildPageChanged!(page, currentPage);
-
-        },
-        physics: widget.childPagePhysics,
-        children: children[index]
-      );
-
-      pages.add(pageView);
-
-    }
-
-    return pages;
-
   }
 
 

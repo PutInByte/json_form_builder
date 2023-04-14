@@ -1,5 +1,4 @@
 
-import 'json_block_model.dart';
 
 class JsonPanelModel {
 

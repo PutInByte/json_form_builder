@@ -1,7 +1,6 @@
 
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
+import 'package:json_form_builder/src/utils/utils.dart';
 
 class PagerController {
 
@@ -23,42 +22,37 @@ class PagerController {
     this.onChildPrev,
   });
 
+
   PageController get currentChildController => nestedControllers[currentPage];
   int get currentPage => controller.page?.toInt() ?? 0;
   int get currentChildPage => currentChildController.page?.toInt() ?? 0;
-  int get pageCount => _calculateCount(controller.positions);
-  int get childPageCount => _calculateCount(currentChildController.positions);
+  int get pageCount => Utils.calculateCount(controller.positions);
+  int get childPageCount => Utils.calculateCount(currentChildController.positions);
 
 
   void nextPage() => _changeChildPage(next: true);
-
 
   void prevPage() => _changeChildPage(next: false);
 
 
   void _changeChildPage({bool next = true}) {
+
+    if (next) {
+      if (currentChildPage < childPageCount) {
+        _changePage(currentChildController, true);
+        onChildNext?.call();
+      } else {
+        _changeParentPage(next: true);
+      }
+    } else {
+      if (currentChildPage > 0) {
+        _changePage(currentChildController, false);
+        onChildPrev?.call();
+      } else {
+        _changeParentPage(next: false);
+      }
+    }
     pageScrollController?.animateTo(0, duration: const Duration(milliseconds: 320), curve: Curves.fastOutSlowIn);
-
-    if (currentChildPage == 0 && !next) {
-      _changeParentPage(next: false);
-      return;
-    }
-
-    if (currentChildPage == childPageCount && next) {
-      _changeParentPage(next: true);
-      return;
-    }
-
-    final canCancel = currentChildPage > 0;
-    final canContinue = currentChildPage <= childPageCount;
-
-    if (next && canContinue) {
-      _changePage(currentChildController, true);
-      onChildNext?.call();
-    } else if (!next && canCancel) {
-      _changePage(currentChildController, false);
-      onChildPrev?.call();
-    }
 
   }
 
@@ -74,24 +68,24 @@ class PagerController {
 
 
   void _onPageChanged(bool isNext) {
+
     onChanged?.call(isNext, currentChildPage, currentPage);
 
     if (4 == currentPage + 1 && childPageCount + 1 == currentChildPage + 1) {
       onPageEnd?.call();
     }
+
   }
 
 
-  int _calculateCount(Iterable<ScrollPosition> positions) {
-    final maxScrollExtent = positions.map((p) => p.maxScrollExtent).reduce(max);
-    final viewportDimension = positions.map((p) => p.viewportDimension).reduce(max);
-    return (maxScrollExtent / viewportDimension).floor();
-  }
 
 
   void dispose() {
     controller.dispose();
-    nestedControllers.forEach((c) => c.dispose());
+    for (var c in nestedControllers) {
+      c.dispose();
+    }
   }
+
 
 }
