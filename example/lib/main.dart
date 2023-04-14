@@ -148,6 +148,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: JsonFormBuilder(
           data: formData,
+          config: BuilderConfig(),
         ),
       ),
     );

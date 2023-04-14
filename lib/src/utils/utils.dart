@@ -29,13 +29,13 @@ class Utils {
   }
 
 
-  static void changePage(PageController controller, bool next) {
+  static Future<void> changePage(PageController controller, bool next) async {
 
     final method = next ? controller.nextPage : controller.previousPage;
     final limit = next ? controller.positions.last.maxScrollExtent : controller.positions.first.minScrollExtent;
 
     if (controller.page != limit) {
-      method(duration: const Duration(milliseconds: 320), curve: Curves.fastOutSlowIn);
+      await method(duration: const Duration(milliseconds: 180), curve: Curves.fastOutSlowIn);
     }
 
   }

@@ -3,7 +3,7 @@ import 'package:json_form_builder/src/contents/drawers/panel_drawer.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../drawers/content_drawer.dart';
-import '../drawers/navigation_drawer.dart';
+import '../drawers/navigator_drawer.dart';
 
 class LayoutAddon extends StatelessWidget {
 
@@ -120,7 +120,7 @@ class LayoutAddon extends StatelessWidget {
         child: appBar!,
       ) : null,
       floatingActionButton: floatingActionButton,
-      // bottomNavigationBar: navigatorDrawer,
+      bottomNavigationBar: navigatorDrawer,
       backgroundColor: backgroundColor ?? (deviceScreenType == DeviceScreenType.desktop ? null : const Color.fromRGBO(231, 234, 241, 1)),
     );
   }

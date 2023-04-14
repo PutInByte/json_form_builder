@@ -64,31 +64,19 @@ class _PagerState extends State<Pager> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.08),
-            blurRadius: 14,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: ExpandablePageView(
-        clipBehavior: Clip.antiAlias,
-        controller: widget.controller,
-        alignment: widget.alignment,
-        // onPageChanged: (int page) {
-        //
-        //   widget.onPageChanged?.call(page);
-        //
-        // },
-        animationDuration: widget.animationDuration,
-        animateFirstPage: false,
-        physics: widget.physics,
-        children: widget.children,
-      ),
+    return ExpandablePageView(
+      clipBehavior: Clip.antiAlias,
+      controller: widget.controller,
+      alignment: widget.alignment,
+      // onPageChanged: (int page) {
+      //
+      //   widget.onPageChanged?.call(page);
+      //
+      // },
+      animationDuration: widget.animationDuration,
+      animateFirstPage: false,
+      physics: widget.physics,
+      children: widget.children,
     );
   }
 

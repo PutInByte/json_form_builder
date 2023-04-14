@@ -82,7 +82,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
       delegate: HeaderDelegateAddon(
           expandedHeight: 135.1,
           minHeight: 135.0,
-          child: Text('PanelDrawer')
+          child: const Text('PanelDrawer')
       ),
       pinned: false,
       floating: false,
