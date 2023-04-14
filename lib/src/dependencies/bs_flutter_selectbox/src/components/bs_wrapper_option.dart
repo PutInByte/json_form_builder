@@ -146,12 +146,14 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
     _timer = Timer(const Duration(milliseconds: 300), () => callback(value));
   }
 
+
   void updateState(VoidCallback function) {
     if(mounted)
       setState(() {
         function();
       });
   }
+
 
   void _checkHeight() {
     Future.delayed(Duration(microseconds: BsSelectBoxConfig.timeDelay), () {
@@ -210,6 +212,7 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
 
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -349,7 +352,7 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
                                                   onTap: () {
                                                     widget.onChange(option);
                                                     _focusNode.unfocus();
-                                                    updateState(() {});
+                                                    updateState(() { });
                                                   },
                                                   borderRadius: BorderRadius.circular(5.0),
                                                   splashColor: widget.selectBoxStyle.selectedColor,

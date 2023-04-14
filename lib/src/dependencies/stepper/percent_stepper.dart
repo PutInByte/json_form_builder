@@ -9,9 +9,9 @@ const double _kStepSize = 60.0;
 const double _kStepSpacing = 3.0;
 const Duration _kThemeAnimationDuration = Duration(milliseconds: 300);
 
-class CupertinoPercentStepper extends StatefulWidget {
+class PercentStepper extends StatefulWidget {
 
-  const CupertinoPercentStepper({
+  const PercentStepper({
     Key? key,
     required this.steps,
     this.physics,
@@ -38,10 +38,10 @@ class CupertinoPercentStepper extends StatefulWidget {
   final ControlsWidgetBuilder? controlsBuilder;
 
   @override
-  State<CupertinoPercentStepper> createState() => _CupertinoPercentStepperState();
+  State<PercentStepper> createState() => _PercentStepperState();
 }
 
-class _CupertinoPercentStepperState extends State<CupertinoPercentStepper> with TickerProviderStateMixin {
+class _PercentStepperState extends State<PercentStepper> with TickerProviderStateMixin {
 
   final Map<int, StepState> _oldStates = <int, StepState>{};
   bool isDesktop = true;
@@ -70,7 +70,7 @@ class _CupertinoPercentStepperState extends State<CupertinoPercentStepper> with 
 
 
   @override
-  void didUpdateWidget(CupertinoPercentStepper oldWidget) {
+  void didUpdateWidget(PercentStepper oldWidget) {
     super.didUpdateWidget(oldWidget);
     assert(widget.steps.length == oldWidget.steps.length);
 
@@ -124,7 +124,7 @@ class _CupertinoPercentStepperState extends State<CupertinoPercentStepper> with 
 
     assert(debugCheckHasDirectionality(context));
     assert(() {
-      if (context.findAncestorWidgetOfExactType<CupertinoPercentStepper>() != null) {
+      if (context.findAncestorWidgetOfExactType<PercentStepper>() != null) {
         throw FlutterError('Steppers must not be nested.\n'
             'The material specification advises that one should avoid embedding '
             'steppers within steppers. '
