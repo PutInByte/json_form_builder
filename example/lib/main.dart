@@ -123,21 +123,294 @@ class _MyAppState extends State<MyApp> {
         "type": "panel",
         "name": "Сведения о ТС",
         "order": 2,
-        "items": []
+        "items": [
+          {
+            "id": 2,
+            "order": 1,
+            "type": "block",
+            "isSeparated": false,
+            "info": "C помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни.",
+            "items": [
+              {
+                "id": 3,
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "type": "separator",
+                "order": 1,
+                "colSpan": 3,
+                "items": [
+                  {
+                    "id": 6,
+                    "title": "",
+                    "fieldName": "piType",
+                    "source": {
+                      "id": 1,
+                      "source": "/ws/selection/declaration.select.piType"
+                    },
+                    "conditionValues": [],
+                    "parent": null,
+                    "conditionFields": [],
+                    "order": 1,
+                    "type": "integer",
+                    "widget": "RadioSelect",
+                    "colSpan": 2
+                  }
+                ]
+              }
+            ]
+          },
+        ]
+      },
+      {
+        "id": 9,
+        "type": "panel",
+        "name": "Сведения о ТС",
+        "order": 2,
+        "items": [
+          {
+            "id": 2,
+            "order": 1,
+            "type": "block",
+            "isSeparated": false,
+            "info": "C помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни.",
+            "items": [
+              {
+                "id": 3,
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "type": "separator",
+                "order": 1,
+                "colSpan": 3,
+                "items": [
+                  {
+                    "id": 6,
+                    "title": "",
+                    "fieldName": "piType",
+                    "source": {
+                      "id": 1,
+                      "source": "/ws/selection/declaration.select.piType"
+                    },
+                    "conditionValues": [],
+                    "parent": null,
+                    "conditionFields": [],
+                    "order": 1,
+                    "type": "integer",
+                    "widget": "RadioSelect",
+                    "colSpan": 2
+                  }
+                ]
+              }
+            ]
+          },
+        ]
+      },
+      {
+        "id": 9,
+        "type": "panel",
+        "name": "Сведения о ТС",
+        "order": 2,
+        "items": [
+          {
+            "id": 2,
+            "order": 1,
+            "type": "block",
+            "isSeparated": false,
+            "info": "C помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни.",
+            "items": [
+              {
+                "id": 3,
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "type": "separator",
+                "order": 1,
+                "colSpan": 3,
+                "items": [
+                  {
+                    "id": 6,
+                    "title": "",
+                    "fieldName": "piType",
+                    "source": {
+                      "id": 1,
+                      "source": "/ws/selection/declaration.select.piType"
+                    },
+                    "conditionValues": [],
+                    "parent": null,
+                    "conditionFields": [],
+                    "order": 1,
+                    "type": "integer",
+                    "widget": "RadioSelect",
+                    "colSpan": 2
+                  }
+                ]
+              }
+            ]
+          },
+        ]
+      },
+      {
+        "id": 9,
+        "type": "panel",
+        "name": "Сведения о ТС",
+        "order": 2,
+        "items": [
+          {
+            "id": 2,
+            "order": 1,
+            "type": "block",
+            "isSeparated": false,
+            "info": "C помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни.",
+            "items": [
+              {
+                "id": 3,
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "type": "separator",
+                "order": 1,
+                "colSpan": 3,
+                "items": [
+                  {
+                    "id": 6,
+                    "title": "",
+                    "fieldName": "piType",
+                    "source": {
+                      "id": 1,
+                      "source": "/ws/selection/declaration.select.piType"
+                    },
+                    "conditionValues": [],
+                    "parent": null,
+                    "conditionFields": [],
+                    "order": 1,
+                    "type": "integer",
+                    "widget": "RadioSelect",
+                    "colSpan": 2
+                  }
+                ]
+              }
+            ]
+          },
+        ]
+      },
+      {
+        "id": 9,
+        "type": "panel",
+        "name": "Сведения о ТС",
+        "order": 2,
+        "items": [
+          {
+            "id": 2,
+            "order": 1,
+            "type": "block",
+            "isSeparated": false,
+            "info": "C помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни.",
+            "items": [
+              {
+                "id": 3,
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "type": "separator",
+                "order": 1,
+                "colSpan": 3,
+                "items": [
+                  {
+                    "id": 6,
+                    "title": "",
+                    "fieldName": "piType",
+                    "source": {
+                      "id": 1,
+                      "source": "/ws/selection/declaration.select.piType"
+                    },
+                    "conditionValues": [],
+                    "parent": null,
+                    "conditionFields": [],
+                    "order": 1,
+                    "type": "integer",
+                    "widget": "RadioSelect",
+                    "colSpan": 2
+                  }
+                ]
+              }
+            ]
+          },
+        ]
       },
       {
         "id": 10,
         "type": "panel",
         "name": "Сведения о перевозке товаров",
         "order": 3,
-        "items": []
+        "items": [
+          {
+            "id": 2,
+            "order": 1,
+            "type": "block",
+            "isSeparated": false,
+            "info": "C помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни.",
+            "items": [
+              {
+                "id": 3,
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "type": "separator",
+                "order": 1,
+                "colSpan": 3,
+                "items": [
+                  {
+                    "id": 6,
+                    "title": "",
+                    "fieldName": "piType",
+                    "source": {
+                      "id": 1,
+                      "source": "/ws/selection/declaration.select.piType"
+                    },
+                    "conditionValues": [],
+                    "parent": null,
+                    "conditionFields": [],
+                    "order": 1,
+                    "type": "integer",
+                    "widget": "RadioSelect",
+                    "colSpan": 2
+                  }
+                ]
+              }
+            ]
+          },
+        ]
       },
       {
         "id": 10,
         "type": "panel",
         "name": "Сведения о товарной партии",
-        "order": 2,
-        "items": []
+        "order": 4,
+        "items": [
+          {
+            "id": 2,
+            "order": 1,
+            "type": "block",
+            "isSeparated": false,
+            "info": "C помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни.",
+            "items": [
+              {
+                "id": 3,
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "type": "separator",
+                "order": 1,
+                "colSpan": 3,
+                "items": [
+                  {
+                    "id": 6,
+                    "title": "",
+                    "fieldName": "piType",
+                    "source": {
+                      "id": 1,
+                      "source": "/ws/selection/declaration.select.piType"
+                    },
+                    "conditionValues": [],
+                    "parent": null,
+                    "conditionFields": [],
+                    "order": 1,
+                    "type": "integer",
+                    "widget": "RadioSelect",
+                    "colSpan": 2
+                  }
+                ]
+              }
+            ]
+          },
+        ]
       }
     ]
   };
@@ -145,16 +418,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: JsonFormBuilder(
           data: formData,
           config: BuilderConfig(
+            pagerConfig: PagerConfig(
+              childrenPhysics: NeverScrollableScrollPhysics(),
+              parentPhysics: NeverScrollableScrollPhysics()
+            ),
             eventConfig: BuilderEventConfig(
-              onNextServerSide: () async {
-                  // await Future.delayed(const Duration(seconds: 2));
-              }
+              // onNextServerSide: () async {
+              //     // await Future.delayed(const Duration(seconds: 2));
+              // }
             ),
           ),
         ),

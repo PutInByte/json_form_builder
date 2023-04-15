@@ -19,7 +19,6 @@ class NavigatorDrawer extends StatelessWidget {
 
     bool isMobile = !(deviceScreenType == DeviceScreenType.tablet || deviceScreenType == DeviceScreenType.desktop);
 
-    double gapSize = isMobile ? 0.0 : 32.0;
     double containerHeight = isMobile ? 68.0 : 80.0;
 
     return Container(
@@ -156,7 +155,9 @@ class NavigatorDrawer extends StatelessWidget {
         ),
       ),
     );
+
   }
+
 
   Widget getPrevChild(context, NavigatorController controller, bool isMobile) {
     return Row(

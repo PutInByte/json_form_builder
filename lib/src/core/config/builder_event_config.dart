@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/json_form_builder.dart';
+import 'package:json_form_builder/src/controllers/pager_controller.dart';
 
 class BuilderEventConfig {
 
@@ -7,7 +8,7 @@ class BuilderEventConfig {
   final VoidCallback? onDispose;
   final VoidCallback? onBuild;
   final VoidCallback? onChangePager;
-  final VoidCallback? onChangeContent;
+  final OnChanged? onChangeContent;
   final VoidCallback? onNext;
   final VoidCallback? onPrevious;
   final VoidCallback? onEnd;

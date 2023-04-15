@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/src/controllers/navigator_controller.dart';
+import 'package:json_form_builder/src/controllers/panel_controller.dart';
 import 'package:json_form_builder/src/core/utils/api_utils.dart';
 import 'package:json_form_builder/src/core/utils/pager_utils.dart';
+
+
+
+typedef OnChanged = void Function(int index);
+
 
 class PagerController extends ChangeNotifier {
 
 
   final NavigatorController navigator = NavigatorController();
+  final PanelController panelController = PanelController();
   final PageController pageController = PageController(initialPage: 0, keepPage: true);
   final Map<int, PageController> _nestedPageControllers = { };
 
 
-  VoidCallback? onChanged;
+  OnChanged? onChanged;
   VoidCallback? onStart;
   VoidCallback? onEnd;
   OnNextServerSide? onNextServerSide;
@@ -51,7 +58,7 @@ class PagerController extends ChangeNotifier {
 
     _onPageChanged( currentPage );
 
-    if ( PagerUtils.isMaxExtent(controller) && PagerUtils.isMaxExtent(pageController) ) {
+    if ( currentChildPage == childPageCount && PagerUtils.isMaxExtent(pageController) ) {
       _onPageEnd();
     }
     else if ( currentChildPage == 0 && PagerUtils.isMinExtent(pageController) ) {
@@ -72,8 +79,9 @@ class PagerController extends ChangeNotifier {
 
 
   void _onPageChanged( int index ) {
-    navigator.onChanges();
-    onChanged?.call();
+    navigator.onChanged();
+    panelController.onChangedPager(index);
+    onChanged?.call(index);
   }
 
 

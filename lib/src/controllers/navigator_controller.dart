@@ -29,7 +29,7 @@ class NavigatorController extends ChangeNotifier {
   }
 
 
-  void onChanges() {
+  void onChanged() {
     canNavigatePrev = true;
     canNavigateNext = true;
   }
