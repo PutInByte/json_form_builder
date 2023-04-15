@@ -63,7 +63,7 @@ class LayoutAddon extends StatelessWidget {
       slivers: [
 
 
-        // panelDrawer,
+        panelDrawer,
         //
         //
         // SliverPersistentHeader(

@@ -6,7 +6,8 @@ import 'package:json_form_builder/src/models/json_model.dart';
 import 'package:provider/provider.dart';
 import 'contents/drawers/content_drawer.dart';
 import 'contents/drawers/navigator_drawer.dart';
-import 'utils/builder_config.dart';
+import 'core/config/builder_config.dart';
+
 
 class JsonFormBuilder extends StatefulWidget {
 
@@ -32,7 +33,14 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
     super.initState();
 
     _jsonModel = JsonModel.fromJson( widget.data );
+
     controller = JsonFormController( data: _jsonModel );
+
+    controller.pagerController
+      ..onChanged = widget.config?.eventConfig.onChangeContent
+      ..onStart = widget.config?.eventConfig.onStart
+      ..onEnd = widget.config?.eventConfig.onEnd
+      ..onNextServerSide = widget.config?.eventConfig.onNextServerSide;
 
   }
 

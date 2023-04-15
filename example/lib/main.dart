@@ -14,6 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
+
   static const Map<String, dynamic> formData = {
     "data": [
       {
@@ -141,14 +142,21 @@ class _MyAppState extends State<MyApp> {
     ]
   };
 
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: JsonFormBuilder(
           data: formData,
-          config: BuilderConfig(),
+          config: BuilderConfig(
+            eventConfig: BuilderEventConfig(
+              onNextServerSide: () async {
+                  // await Future.delayed(const Duration(seconds: 2));
+              }
+            ),
+          ),
         ),
       ),
     );

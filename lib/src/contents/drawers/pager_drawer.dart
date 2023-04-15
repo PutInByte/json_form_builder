@@ -36,7 +36,7 @@ class PagerDrawer extends StatefulWidget {
   State<StatefulWidget> createState() => _PagerDrawerState();
 }
 
-class _PagerDrawerState extends State<PagerDrawer> {
+class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClientMixin {
 
   List<Widget> pagers = [];
 
@@ -55,6 +55,7 @@ class _PagerDrawerState extends State<PagerDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
 
     config = BuilderConfig.of(context).pagerConfig;
 
@@ -89,7 +90,7 @@ class _PagerDrawerState extends State<PagerDrawer> {
 
   void initChildPagers() {
 
-    for (int index = 0; index < 3; index++) {
+    for (int index = 0; index < 2; index++) {
 
       Widget pager = Pager(
         controller: controller.getChildPageController(index),
@@ -101,10 +102,11 @@ class _PagerDrawerState extends State<PagerDrawer> {
         animationDuration: config.animationDuration,
         children: [
 
-          PagerCardLayout(
-            title: "HELLO $index",
-            children: const [ ],
-          )
+          for(int i = 2; i > index; i--)
+              PagerCardLayout(
+                title: "HELLO $i",
+                children: const [ ],
+              ),
 
         ]
       );
@@ -114,6 +116,9 @@ class _PagerDrawerState extends State<PagerDrawer> {
     }
 
   }
+
+  @override
+  bool get wantKeepAlive => config.keepAlive;
 
 
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/src/controllers/navigator_controller.dart';
-import 'package:json_form_builder/src/utils/utils.dart';
+import 'package:json_form_builder/src/core/utils/api_utils.dart';
+import 'package:json_form_builder/src/core/utils/pager_utils.dart';
 
 class PagerController extends ChangeNotifier {
+
 
   final NavigatorController navigator = NavigatorController();
   final PageController pageController = PageController(initialPage: 0, keepPage: true);
@@ -12,17 +14,19 @@ class PagerController extends ChangeNotifier {
   VoidCallback? onChanged;
   VoidCallback? onStart;
   VoidCallback? onEnd;
+  OnNextServerSide? onNextServerSide;
+  
+
+  int get currentPage => PagerUtils.getCurrentPage( pageController );
+
+  int get currentChildPage => PagerUtils.getCurrentPage( _getNestedPageController(currentPage) );
+
+  int get pageCount => PagerUtils.calculatePageCount( pageController );
+
+  int get childPageCount => PagerUtils.calculatePageCount(_getNestedPageController( currentPage ));
 
 
   bool _isChangingPage = false;
-
-  int get currentPage => Utils.getCurrentPage(pageController);
-
-  int get currentChildPage => Utils.getCurrentPage(_getNestedPageController(currentPage));
-
-  int get pageCount => Utils.calculatePageCount(pageController);
-
-  int get childPageCount => Utils.calculatePageCount(_getNestedPageController(currentPage));
 
 
   Future<void> changePage({ bool next = true }) async {
@@ -31,55 +35,78 @@ class PagerController extends ChangeNotifier {
 
     _isChangingPage = true;
 
-    final controller = currentChildPage < childPageCount ? _getNestedPageController(currentPage) : pageController;
-    final forward = next ? currentPage < controller.positions.last.maxScrollExtent : currentPage > controller.positions.first.minScrollExtent;
+    final PageController controller = _getNestedPageController( currentPage );
 
-    if (!forward) return;
 
-    await Utils.changePage(controller, next);
+    if (onNextServerSide != null && next) await _onPageNextServerSide();
 
-    if (controller.position.pixels == controller.position.maxScrollExtent) _onPageEnd();
-    else if (controller.position.pixels == controller.position.minScrollExtent) _onPageStart();
-    else _onPageChanged(currentPage);
 
-    _isChangingPage = false;
+    if ( (PagerUtils.isMinExtent(controller) && !next) || (PagerUtils.isMaxExtent(controller) && next) ) {
+      await PagerUtils.changePage(pageController, next);
+    }
+    else {
+      if (!PagerUtils.canForward(controller, next)) return;
+      await PagerUtils.changePage(controller, next);
+    }
+
+    _onPageChanged( currentPage );
+
+    if ( PagerUtils.isMaxExtent(controller) && PagerUtils.isMaxExtent(pageController) ) {
+      _onPageEnd();
+    }
+    else if ( currentChildPage == 0 && PagerUtils.isMinExtent(pageController) ) {
+      _onPageStart();
+    }
+
+    Future.delayed( const Duration(milliseconds: 300), () => _isChangingPage = false );
 
   }
 
 
-  PageController getChildPageController(int index) => _getNestedPageController(index);
+  PageController getChildPageController( int index ) => _getNestedPageController(index);
 
 
-  PageController _getNestedPageController(int pageIndex) {
+  PageController _getNestedPageController( int pageIndex ) {
     return _nestedPageControllers.putIfAbsent(pageIndex, () => PageController(keepPage: true, initialPage: 0));
   }
 
 
-  void _onPageChanged(int index) {
-    debugPrint("onPageChanged($index);");
+  void _onPageChanged( int index ) {
     navigator.onChanges();
     onChanged?.call();
   }
 
 
   void _onPageStart() {
-    debugPrint("onPageStart();");
+    debugPrint('page_start triggered');
     navigator.onStart();
     onStart?.call();
   }
 
 
   void _onPageEnd() {
-    debugPrint("onPageEnd();");
+    debugPrint('page_end triggered');
     navigator.onEnd();
     onEnd?.call();
+  }
+
+
+  Future<void> _onPageNextServerSide() async {
+    debugPrint('page_next_server_side triggered');
+
+    navigator.processing = true;
+
+    await onNextServerSide?.call();
+
+    navigator.processing = false;
+
   }
 
 
   @override
   void dispose() {
     pageController.dispose();
-    for (var controller in _nestedPageControllers.values) {
+    for (PageController controller in _nestedPageControllers.values) {
       controller.dispose();
     }
     super.dispose();
