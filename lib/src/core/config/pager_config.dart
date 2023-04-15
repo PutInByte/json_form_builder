@@ -26,7 +26,7 @@ class PagerConfig {
     this.childrenPhysics = const ClampingScrollPhysics(),
     this.keepAlive = true,
     this.borderRadius = 10,
-    this.alignment = Alignment.center,
+    this.alignment = Alignment.topCenter,
   });
 
 

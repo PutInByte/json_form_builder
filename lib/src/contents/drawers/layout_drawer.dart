@@ -5,7 +5,7 @@ import '../addons/layout_addon.dart';
 import 'content_drawer.dart';
 import 'navigator_drawer.dart';
 
-class LayoutDrawer extends StatefulWidget {
+class LayoutDrawer extends StatelessWidget {
 
   const LayoutDrawer({
     Key? key,
@@ -19,25 +19,16 @@ class LayoutDrawer extends StatefulWidget {
   final NavigatorDrawer navigatorDrawer;
 
   @override
-  State<StatefulWidget> createState() => _LayoutDrawerState();
-}
-
-class _LayoutDrawerState extends State<LayoutDrawer> {
-
-
-  @override
   Widget build(BuildContext context) {
 
     return ImproveScrollAddon(
       scrollController: ScrollController(),
       child: LayoutAddon(
-        navigatorDrawer: widget.navigatorDrawer,
-        panelDrawer: widget.panelDrawer,
-        contentDrawer: widget.contentDrawer,
+        navigatorDrawer: navigatorDrawer,
+        panelDrawer: panelDrawer,
+        contentDrawer: contentDrawer,
       )
     );
 
   }
-
-
 }

@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' show Colors, ControlsWidgetBuilder, Step, StepState, StepperType;
+import 'package:flutter/material.dart' show Colors;
+import 'package:json_form_builder/src/controllers/json_form_controller.dart';
+import 'package:json_form_builder/src/controllers/pager_controller.dart';
+import 'package:json_form_builder/src/controllers/panel_controller.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:badges/badges.dart';
-export 'package:flutter/material.dart' show Step, ControlsWidgetBuilder, ControlsDetails, StepState, StepperType;
+import 'addons/stepper_step_addon.dart';
 
 const double _kStepSize = 60.0;
 const double _kStepSpacing = 3.0;
@@ -11,31 +15,9 @@ const Duration _kThemeAnimationDuration = Duration(milliseconds: 300);
 
 class PercentStepper extends StatefulWidget {
 
-  const PercentStepper({
-    Key? key,
-    required this.steps,
-    this.physics,
-    this.type = StepperType.vertical,
-    this.onStepTapped,
-    this.onStepContinue,
-    this.onStepCancel,
-    this.controlsBuilder,
-  }) : super(key: key);
+  const PercentStepper({ Key? key, required this.steps }) : super(key: key);
 
-
-  final List<Step> steps;
-
-  final ScrollPhysics? physics;
-
-  final StepperType type;
-
-  final ValueChanged<int>? onStepTapped;
-
-  final VoidCallback? onStepContinue;
-
-  final VoidCallback? onStepCancel;
-
-  final ControlsWidgetBuilder? controlsBuilder;
+  final List<StepperStep> steps;
 
   @override
   State<PercentStepper> createState() => _PercentStepperState();
@@ -43,79 +25,52 @@ class PercentStepper extends StatefulWidget {
 
 class _PercentStepperState extends State<PercentStepper> with TickerProviderStateMixin {
 
-  final Map<int, StepState> _oldStates = <int, StepState>{};
-  bool isDesktop = true;
-  bool isTablet = false;
+
+  late final PanelController panelController;
 
   List<GlobalKey> _keys = [];
+  bool isDesktop = true;
+  int currentIndex = 0;
+
 
   @override
   void initState() {
     super.initState();
 
-    _keys = List<GlobalKey>.generate(
-      widget.steps.length,
-          (int i) => GlobalKey(),
-    );
+    _keys = List<GlobalKey>.generate(widget.steps.length, (int i) => GlobalKey());
 
-    for (int i = 0; i < widget.steps.length; i++) {
-      _oldStates[i] = widget.steps[i].state;
-    }
+    // for (int i = 0; i < widget.steps.length; i++) {
+    //   _oldStates[i] = widget.steps[i].state;
+    // }
 
-  }
+    PagerController controller = Provider.of<JsonFormController>(context, listen: false).pagerController;
 
-  bool _isLast(int index) {
-    return widget.steps.length - 1 == index;
+    panelController = controller.panelController;
+
+    panelController.onChanged = (index) {
+
+      currentIndex = index;
+
+      _onInteractive(index);
+
+      setState(() { });
+
+    };
+
+
   }
 
 
   @override
   void didUpdateWidget(PercentStepper oldWidget) {
     super.didUpdateWidget(oldWidget);
+
     assert(widget.steps.length == oldWidget.steps.length);
+    //
+    // for (int i = 0; i < oldWidget.steps.length; i += 1) {
+    //   _oldStates[i] = oldWidget.steps[i].state;
+    // }
 
-    for (int i = 0; i < oldWidget.steps.length; i += 1) {
-      _oldStates[i] = oldWidget.steps[i].state;
-    }
-  }
-
-
-  Widget _buildCircle(int index, bool oldState) {
-    return SizedBox(
-      // margin: const EdgeInsets.symmetric(vertical: _kStepPadding),
-      width: _kStepSize,
-      child: Center(
-        child: CircularPercentIndicator(
-          animation: true,
-          circularStrokeCap: CircularStrokeCap.round,
-          curve: Curves.fastLinearToSlowEaseIn,
-          animationDuration: 2000,
-          radius: isDesktop ? 28.0 : 24.0,
-          lineWidth: 8.0,
-          percent: .4,
-          progressColor: const Color.fromRGBO(96, 188, 255, 1),
-          backgroundColor: widget.steps[index].state == StepState.editing ? Colors.white : const Color.fromRGBO(96, 188, 255, 0.2),
-          animateFromLastPercent: true,
-          center: Text(
-            '${(0.4 * 100).toInt()}%',
-            maxLines: 1,
-            style: TextStyle(
-              color: widget.steps[index].state == StepState.editing ? Colors.white : const Color.fromRGBO(15, 66, 176, 1),
-              fontSize: isDesktop ? 16 : 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        )      ),
-    );
-  }
-
-
-  Widget _buildIcon(int index) {
-    return AnimatedContainer(
-      curve: Curves.fastOutSlowIn,
-      duration: _kThemeAnimationDuration,
-      child: _buildCircle(index, true),
-    );
   }
 
 
@@ -137,21 +92,21 @@ class _PercentStepperState extends State<PercentStepper> with TickerProviderStat
     DeviceScreenType deviceScreenType = getDeviceType(screenSize);
 
     isDesktop = deviceScreenType == DeviceScreenType.desktop;
-    isTablet = deviceScreenType == DeviceScreenType.tablet;
 
     final List<Widget> children = <Widget>[
-      for (int i = 0; i < widget.steps.length; i++) ...<Widget>[
+
+      for (int index = 0; index < widget.steps.length; index++) ...<Widget>[
 
         Badge(
-          showBadge: isDesktop ? false : widget.steps[i].state != StepState.editing,
+          showBadge: isDesktop ? false : !_isCurrentIndex(index),
           position: BadgePosition.topEnd(top: 0, end: 0),
           child: AnimatedContainer(
-            key: _keys[i],
+            key: _keys[index],
             constraints: isDesktop ? const BoxConstraints(maxWidth: 400) : null,
             height: isDesktop ? null : 94,
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              gradient: widget.steps[i].state == StepState.editing ? const LinearGradient(
+              gradient: _isCurrentIndex(index) ? const LinearGradient(
                 colors: [
                   Color.fromRGBO(91, 108, 255, 1),
                   Color.fromRGBO(15, 66, 176, 1),
@@ -168,72 +123,44 @@ class _PercentStepperState extends State<PercentStepper> with TickerProviderStat
                 spreadRadius: 0,
               ) ],
             ),
-            // margin: isDesktop ? null : const EdgeInsets.symmetric(horizontal: 6),
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Focus(
-              canRequestFocus: widget.steps[i].state != StepState.disabled,
+              canRequestFocus: false,
               child: CupertinoButton(
                 padding: EdgeInsets.zero,
-                onPressed: () {
-
-                  Scrollable.ensureVisible(
-                    _keys[i].currentContext!,
-                    curve: Curves.fastOutSlowIn,
-                    duration: _kThemeAnimationDuration,
-                  );
-
-                  if (widget.steps[i].state != StepState.disabled) return;
-                  if (widget.onStepTapped != null) widget.onStepTapped!(i);
-
-                },
+                onPressed: () => _onInteractive(index),
                 child: isDesktop
                     ? Row(
                         children: <Widget>[
+
                           SizedBox(
                             height: 80.0,
                             child: Center(
-                              child: _buildIcon(i),
+                              child: _buildIcon(index),
                             ),
                           ),
+
                           Flexible(
-                            child: Container(
-                              margin: const EdgeInsetsDirectional.only(start: _kStepSpacing),
-                              child: DefaultTextStyle(
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                child: widget.steps[i].title,
-                              ),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.only(start: _kStepSpacing),
+                              child: _buildTitle(index)
                             ),
                           )
                         ],
                       )
                     : ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: isDesktop ? 0.0 : isTablet ? 120.0 : 82.0),
+                        constraints: BoxConstraints(maxWidth: deviceScreenType == DeviceScreenType.tablet ? 120.0 : 82.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                              child: Center(
-                                child: _buildIcon(i),
-                              ),
-                            ),
+
+                            Center( child: _buildIcon(index) ),
+
                             Flexible(
-                              child: DefaultTextStyle(
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: widget.steps[i].state == StepState.editing ? Colors.white : const Color.fromRGBO(15, 66, 176, 1),
-                                  fontSize: 14,
-                                  overflow: TextOverflow.ellipsis,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                child: widget.steps[i].title,
-                              ),
+                              child: _buildTitle(index)
                             )
+
                           ],
                         ),
                       )
@@ -242,15 +169,89 @@ class _PercentStepperState extends State<PercentStepper> with TickerProviderStat
           ),
         ),
 
-        if (!_isLast(i))
-          const Expanded(child: SizedBox(height: 2)),
+        if (!_isLast(index)) const Expanded(child: SizedBox()),
 
       ],
 
     ];
 
-    return Row(children: children);
 
+    return Row( children: children );
+
+  }
+
+
+  bool _isLast( int index ) {
+    return widget.steps.length - 1 == index;
+  }
+
+
+  bool _isCurrentIndex( int index ) {
+    return currentIndex == index;
+  }
+
+
+  Widget _buildCircle( int index, bool oldState ) {
+    return SizedBox(
+      width: _kStepSize,
+      child: Center(
+        child: CircularPercentIndicator(
+          animation: true,
+          circularStrokeCap: CircularStrokeCap.round,
+          curve: Curves.fastLinearToSlowEaseIn,
+          animationDuration: 2000,
+          radius: isDesktop ? 28.0 : 24.0,
+          lineWidth: 8.0,
+          percent: .4,
+          progressColor: const Color.fromRGBO(96, 188, 255, 1),
+          backgroundColor: _isCurrentIndex(index) ? Colors.white : const Color.fromRGBO(96, 188, 255, 0.2),
+          animateFromLastPercent: true,
+          center: Text(
+            '${(0.4 * 100).toInt()}%',
+            maxLines: 1,
+            style: TextStyle(
+              color: _isCurrentIndex(index) ? Colors.white : const Color.fromRGBO(15, 66, 176, 1),
+              fontSize: isDesktop ? 16 : 14,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  Widget _buildTitle( int index ) {
+    return Text(
+      widget.steps[index].title,
+      maxLines: 2,
+      textAlign: TextAlign.center,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        color: _isCurrentIndex(index) ? Colors.white : const Color.fromRGBO(15, 66, 176, 1),
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      ),
+      softWrap: true,
+    );
+  }
+
+
+  Widget _buildIcon( int index ) {
+    return AnimatedContainer(
+      curve: Curves.fastOutSlowIn,
+      duration: _kThemeAnimationDuration,
+      child: _buildCircle(index, true),
+    );
+  }
+
+
+  void _onInteractive( int index ) {
+    Scrollable.ensureVisible(
+      _keys[index].currentContext!,
+      curve: Curves.fastOutSlowIn,
+      duration: _kThemeAnimationDuration,
+    );
   }
 
 

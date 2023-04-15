@@ -59,11 +59,12 @@ class Pager extends StatefulWidget {
   State<StatefulWidget> createState() => _PagerState();
 }
 
-class _PagerState extends State<Pager> {
+class _PagerState extends State<Pager> with AutomaticKeepAliveClientMixin {
 
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ExpandablePageView(
       clipBehavior: Clip.antiAlias,
       controller: widget.controller,
@@ -79,6 +80,9 @@ class _PagerState extends State<Pager> {
       children: widget.children,
     );
   }
+
+  @override
+  bool get wantKeepAlive => widget.keepAlive;
 
 
 }

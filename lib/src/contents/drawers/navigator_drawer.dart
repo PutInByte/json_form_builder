@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
 import 'package:json_form_builder/src/controllers/navigator_controller.dart';
@@ -18,7 +19,6 @@ class NavigatorDrawer extends StatelessWidget {
 
     bool isMobile = !(deviceScreenType == DeviceScreenType.tablet || deviceScreenType == DeviceScreenType.desktop);
 
-    double gapSize = isMobile ? 0.0 : 32.0;
     double containerHeight = isMobile ? 68.0 : 80.0;
 
     return Container(
@@ -155,22 +155,24 @@ class NavigatorDrawer extends StatelessWidget {
         ),
       ),
     );
+
   }
 
-  Widget getPrevChild(context, controller, bool isMobile) {
+
+  Widget getPrevChild(context, NavigatorController controller, bool isMobile) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
 
-        Flexible(
+         Flexible(
           child: Text(
             'Назад',
             style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
           ),
         ),
 
-        // if (controller.prevProcessing) ...[
+        // if (controller.processing) ...[
         //   const SizedBox(width: 12),
         //   const SizedBox(
         //     height: 16,
@@ -180,7 +182,7 @@ class NavigatorDrawer extends StatelessWidget {
         //         Colors.white,
         //         BlendMode.srcATop,
         //       ),
-        //       child: const CupertinoActivityIndicator(),
+        //       child: CupertinoActivityIndicator(),
         //     ),
         //   )
         // ]
@@ -189,33 +191,33 @@ class NavigatorDrawer extends StatelessWidget {
     );
   }
 
-  Widget getNextChild(context, controller, bool isMobile) {
+  Widget getNextChild(context, NavigatorController controller, bool isMobile) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
+      children: [
 
-        Flexible(
+        const Flexible(
           child: Text(
             "Вперед",
             style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
           ),
         ),
 
-        // if (controller.nextProcessing) ...[
-        //   const SizedBox(width: 12),
-        //   const SizedBox(
-        //     height: 16,
-        //     width: 16,
-        //     child: ColorFiltered(
-        //       colorFilter: ColorFilter.mode(
-        //         Colors.white,
-        //         BlendMode.srcATop,
-        //       ),
-        //       child: const CupertinoActivityIndicator(),
-        //     ),
-        //   )
-        // ]
+        if (controller.processing) ...[
+          const SizedBox(width: 12),
+          const SizedBox(
+            height: 16,
+            width: 16,
+            child: ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcATop,
+              ),
+              child: CupertinoActivityIndicator(),
+            ),
+          )
+        ]
 
       ],
     );

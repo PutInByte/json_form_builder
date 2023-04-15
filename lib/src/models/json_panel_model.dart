@@ -2,11 +2,13 @@
 
 class JsonPanelModel {
 
+
   final int id;
   final String type;
   final String name;
   final int order;
   final List<dynamic> blocks;
+
 
   const JsonPanelModel({
     required this.id,
@@ -15,6 +17,7 @@ class JsonPanelModel {
     required this.order,
     required this.blocks,
   });
+
 
   factory JsonPanelModel.fromJson(Map<String, dynamic> json) {
     return JsonPanelModel(

@@ -1,6 +1,6 @@
 //MIT License
 //
-// Copyright (c) 2023 warioddly
+// Copyright (c) 2023 WARIODDLY
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,8 +25,10 @@ import 'package:json_form_builder/json_form_builder.dart';
 import 'package:json_form_builder/src/contents/components/pager_card_layout.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
 import 'package:json_form_builder/src/controllers/pager_controller.dart';
+import 'package:json_form_builder/src/core/states/json_data_state.dart';
 import 'package:json_form_builder/src/dependencies/pager/pager.dart';
 import 'package:provider/provider.dart';
+
 
 class PagerDrawer extends StatefulWidget {
 
@@ -36,11 +38,12 @@ class PagerDrawer extends StatefulWidget {
   State<StatefulWidget> createState() => _PagerDrawerState();
 }
 
-class _PagerDrawerState extends State<PagerDrawer> {
+class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClientMixin {
 
   List<Widget> pagers = [];
 
   late final PagerController controller;
+  late final JsonDataState dataState;
   PagerConfig config = const PagerConfig();
 
   @override
@@ -48,13 +51,16 @@ class _PagerDrawerState extends State<PagerDrawer> {
     super.initState();
 
     controller = Provider.of<JsonFormController>(context, listen: false).pagerController;
+    dataState = Provider.of<JsonDataState>(context, listen: false);
 
     initChildPagers();
+
   }
 
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
 
     config = BuilderConfig.of(context).pagerConfig;
 
@@ -89,7 +95,7 @@ class _PagerDrawerState extends State<PagerDrawer> {
 
   void initChildPagers() {
 
-    for (int index = 0; index < 3; index++) {
+    for (int index = 0; index < dataState.panels.length; index++) {
 
       Widget pager = Pager(
         controller: controller.getChildPageController(index),
@@ -101,10 +107,11 @@ class _PagerDrawerState extends State<PagerDrawer> {
         animationDuration: config.animationDuration,
         children: [
 
-          PagerCardLayout(
-            title: "HELLO $index",
-            children: const [ ],
-          )
+          for(int i = 1; i < 3; i++)
+            PagerCardLayout(
+              title: "HELLO $i",
+              children: const [ ],
+            ),
 
         ]
       );
@@ -114,6 +121,10 @@ class _PagerDrawerState extends State<PagerDrawer> {
     }
 
   }
+
+
+  @override
+  bool get wantKeepAlive => config.keepAlive;
 
 
 }
