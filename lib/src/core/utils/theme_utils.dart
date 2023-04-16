@@ -5,8 +5,6 @@ import 'package:responsive_builder/responsive_builder.dart';
 // class ThemeUtils {
 //
 //   static getContentIndents(BuildContext context, BuilderThemeConfig config) {
-//
-//
 //   }
 //
 // }
