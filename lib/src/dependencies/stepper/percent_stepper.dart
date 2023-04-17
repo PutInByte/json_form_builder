@@ -66,7 +66,7 @@ class _PercentStepperState extends State<PercentStepper> with TickerProviderStat
     super.didUpdateWidget(oldWidget);
 
     assert(widget.steps.length == oldWidget.steps.length);
-    //
+
     // for (int i = 0; i < oldWidget.steps.length; i += 1) {
     //   _oldStates[i] = oldWidget.steps[i].state;
     // }
@@ -174,7 +174,6 @@ class _PercentStepperState extends State<PercentStepper> with TickerProviderStat
       ],
 
     ];
-
 
     return Row( children: children );
 

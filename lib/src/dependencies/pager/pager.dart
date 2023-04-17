@@ -1,6 +1,6 @@
 //MIT License
 //
-// Copyright (c) 2023 warioddly
+// Copyright (c) 2023 WARIODDLY
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,9 +29,7 @@ class Pager extends StatefulWidget {
     Key? key,
     required this.children,
     required this.controller,
-    this.onPageChanged,
     this.alignment = Alignment.center,
-    this.onChildPageChanged,
     this.keepAlive = true,
     this.animationDuration = const Duration(milliseconds: 300),
     this.physics = const AlwaysScrollableScrollPhysics(),
@@ -50,13 +48,9 @@ class Pager extends StatefulWidget {
 
   final Duration animationDuration;
 
-  final ValueChanged<int>? onPageChanged;
-
-  final Function(int, int)? onChildPageChanged;
-
-
   @override
   State<StatefulWidget> createState() => _PagerState();
+
 }
 
 class _PagerState extends State<Pager> with AutomaticKeepAliveClientMixin {
@@ -69,11 +63,6 @@ class _PagerState extends State<Pager> with AutomaticKeepAliveClientMixin {
       clipBehavior: Clip.antiAlias,
       controller: widget.controller,
       alignment: widget.alignment,
-      // onPageChanged: (int page) {
-      //
-      //   widget.onPageChanged?.call(page);
-      //
-      // },
       animationDuration: widget.animationDuration,
       animateFirstPage: false,
       physics: widget.physics,

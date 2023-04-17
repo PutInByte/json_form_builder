@@ -22,9 +22,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/json_form_builder.dart';
-import 'package:json_form_builder/src/contents/components/pager_card_layout.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
 import 'package:json_form_builder/src/controllers/pager_controller.dart';
+import 'package:json_form_builder/src/core/parsers/block_parser.dart';
 import 'package:json_form_builder/src/core/states/json_data_state.dart';
 import 'package:json_form_builder/src/dependencies/pager/pager.dart';
 import 'package:provider/provider.dart';
@@ -38,13 +38,16 @@ class PagerDrawer extends StatefulWidget {
   State<StatefulWidget> createState() => _PagerDrawerState();
 }
 
+
 class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClientMixin {
+
 
   List<Widget> pagers = [];
 
   late final PagerController controller;
   late final JsonDataState dataState;
   PagerConfig config = const PagerConfig();
+
 
   @override
   void initState() {
@@ -78,11 +81,6 @@ class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClient
       clipBehavior: Clip.hardEdge,
       child: Pager(
         controller: controller.pageController,
-        // onPageChanged: (int page) {
-        //
-        //   widget.onPageChanged?.call(page);
-        //
-        // },
         animationDuration: config.animationDuration,
         alignment: config.alignment,
         keepAlive: config.keepAlive,
@@ -93,28 +91,26 @@ class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClient
   }
 
 
+
   void initChildPagers() {
 
+
     for (int index = 0; index < dataState.panels.length; index++) {
+
+
+      List<Widget> children = BlockParser.parse(dataState.panels[index].blocks);
+
+
 
       Widget pager = Pager(
         controller: controller.getChildPageController(index),
         keepAlive: config.keepAlive,
-        // changeParentPage: (int page, int pageLength, bool isNext) { },
-        onPageChanged: (int page) { },
         physics: config.childrenPhysics,
         alignment: config.alignment,
         animationDuration: config.animationDuration,
-        children: [
-
-          for(int i = 1; i < 3; i++)
-            PagerCardLayout(
-              title: "HELLO $i",
-              children: const [ ],
-            ),
-
-        ]
+        children: children
       );
+
 
       pagers.add(pager);
 

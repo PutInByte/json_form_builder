@@ -26,6 +26,8 @@ class JsonDataState extends ChangeNotifier {
 
     panels.addAll((data['data'] as List).map<JsonPanelModel>((panel) => JsonPanelModel.fromJson(panel)).toList());
 
+    // blocks.addAll(panels.map((e) => e.blocks.map((e) => JsonBlockModel.fromJson(e)).toList()));
+
     _isInitialized = true;
 
   }

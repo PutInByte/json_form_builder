@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/src/controllers/navigator_controller.dart';
 import 'package:json_form_builder/src/controllers/panel_controller.dart';
-import 'package:json_form_builder/src/core/utils/api_utils.dart';
 import 'package:json_form_builder/src/core/utils/pager_utils.dart';
-
-
-
-typedef OnChanged = void Function(int index);
+import 'package:json_form_builder/src/core/utils/typedefs.dart';
 
 
 class PagerController extends ChangeNotifier {
@@ -18,19 +14,19 @@ class PagerController extends ChangeNotifier {
   final Map<int, PageController> _nestedPageControllers = { };
 
 
-  OnChanged? onChanged;
+  ChangedEvent? onChanged;
   VoidCallback? onStart;
   VoidCallback? onEnd;
-  OnNextServerSide? onNextServerSide;
+  ServerSideEvent? serverSideEvent;
   
 
   int get currentPage => PagerUtils.getCurrentPage( pageController );
 
-  int get currentChildPage => PagerUtils.getCurrentPage( _getNestedPageController(currentPage) );
+  int get currentChildPage => PagerUtils.getCurrentPage( _getOrPutNestedPageController(currentPage) );
 
   int get pageCount => PagerUtils.calculatePageCount( pageController );
 
-  int get childPageCount => PagerUtils.calculatePageCount(_getNestedPageController( currentPage ));
+  int get childPageCount => PagerUtils.calculatePageCount( _getOrPutNestedPageController( currentPage ) );
 
 
   bool _isChangingPage = false;
@@ -42,10 +38,11 @@ class PagerController extends ChangeNotifier {
 
     _isChangingPage = true;
 
-    final PageController controller = _getNestedPageController( currentPage );
+
+    final PageController controller = _getOrPutNestedPageController( currentPage );
 
 
-    if (onNextServerSide != null && next) await _onPageNextServerSide();
+    if (serverSideEvent != null && next) await _onPageNextServerSide();
 
 
     if ( (PagerUtils.isMinExtent(controller) && !next) || (PagerUtils.isMaxExtent(controller) && next) ) {
@@ -70,10 +67,10 @@ class PagerController extends ChangeNotifier {
   }
 
 
-  PageController getChildPageController( int index ) => _getNestedPageController(index);
+  PageController getChildPageController( int index ) => _getOrPutNestedPageController(index);
 
 
-  PageController _getNestedPageController( int pageIndex ) {
+  PageController _getOrPutNestedPageController( int pageIndex ) {
     return _nestedPageControllers.putIfAbsent(pageIndex, () => PageController(keepPage: true, initialPage: 0));
   }
 
@@ -104,7 +101,7 @@ class PagerController extends ChangeNotifier {
 
     navigator.processing = true;
 
-    await onNextServerSide?.call();
+    await serverSideEvent?.call();
 
     navigator.processing = false;
 
