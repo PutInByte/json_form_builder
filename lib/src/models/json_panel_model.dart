@@ -1,5 +1,4 @@
 
-
 class JsonPanelModel {
 
 
@@ -7,7 +6,7 @@ class JsonPanelModel {
   final String type;
   final String name;
   final int order;
-  final List<dynamic> blocks;
+  final List<Map<String, dynamic>> blocks;
 
 
   const JsonPanelModel({
@@ -25,7 +24,8 @@ class JsonPanelModel {
       type: json['type'],
       name: json['name'],
       order: json['order'],
-      blocks: (json['items'] as List).map((e) => e).toList(),
+      blocks: (json['items'] as List).map<Map<String, dynamic>>((item) => item).toList(),
+      // blocks: (json['items'] as List).map<JsonBlockModel>((item) => JsonBlockModel.fromJson(item)).toList(),
     );
   }
 

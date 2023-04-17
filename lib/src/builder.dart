@@ -80,7 +80,7 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
       ..onChanged = widget.config?.eventConfig.onChangeContent
       ..onStart = widget.config?.eventConfig.onStart
       ..onEnd = widget.config?.eventConfig.onEnd
-      ..onNextServerSide = widget.config?.eventConfig.onNextServerSide;
+      ..serverSideEvent = widget.config?.eventConfig.serverSideEvent;
 
   }
 

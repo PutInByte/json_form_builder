@@ -1,14 +1,8 @@
-
-import 'package:json_form_builder/src/controllers/pager_controller.dart';
-
-
-
+import 'package:json_form_builder/src/core/utils/typedefs.dart';
 
 class PanelController {
 
-
-  OnChanged? onChanged;
-
+  ChangedEvent? onChanged;
 
   void onChangedPager(int index) {
     onChanged?.call(index);
