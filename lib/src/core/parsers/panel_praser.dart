@@ -9,10 +9,6 @@ class PanelParser {
 
   Future<void> parse(Map<String, dynamic> data) async {
 
-
-
-
-
     _panelCount = 3;
 
   }
