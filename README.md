@@ -1,8 +1,6 @@
 # json_form_builder
 
-Powerful Form Builder
-
-## Getting Started
+Powerful Form Builder for Flutter
 
 ### Install Plugin 
 

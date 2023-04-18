@@ -18,7 +18,8 @@ class AsideInformationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
-          minHeight: 400
+          minHeight: 400,
+          maxHeight: 400,
       ),
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(

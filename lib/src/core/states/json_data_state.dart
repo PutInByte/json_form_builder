@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:json_form_builder/src/models/json_block_model.dart';
-import 'package:json_form_builder/src/models/json_panel_model.dart';
+import 'package:json_form_builder/src/models/builder_model.dart';
 
 class JsonDataState extends ChangeNotifier {
 
@@ -9,8 +8,7 @@ class JsonDataState extends ChangeNotifier {
 
 
   final Map<String, dynamic> data;
-  final List<JsonPanelModel> panels = [];
-  final List<JsonBlockModel> blocks = [];
+  final List<BuilderModel> panels = [];
 
 
   bool _isInitialized = false;
@@ -24,7 +22,7 @@ class JsonDataState extends ChangeNotifier {
 
     // await Future.delayed(const Duration(seconds: 3));
 
-    panels.addAll((data['data'] as List).map<JsonPanelModel>((panel) => JsonPanelModel.fromJson(panel)).toList());
+    panels.addAll((data['data'] as List).map<BuilderModel>((panel) => BuilderModel.fromJson(panel)).toList());
 
     // blocks.addAll(panels.map((e) => e.blocks.map((e) => JsonBlockModel.fromJson(e)).toList()));
 
