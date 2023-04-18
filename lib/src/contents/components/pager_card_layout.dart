@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/src/core/config/builder_config.dart';
-import 'package:json_form_builder/src/core/config/builder_theme_config.dart';
+import 'package:json_form_builder/src/core/config/theme_config.dart';
 import 'package:json_form_builder/src/core/utils/theme_utils.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 
@@ -29,7 +30,7 @@ class PagerCardLayout extends StatelessWidget {
 
     DeviceScreenType deviceScreenType = getDeviceType(MediaQuery.of(context).size);
     final double size = (deviceScreenType == DeviceScreenType.mobile) ? 16.0 : 32.0;
-    BuilderThemeConfig themeConfig = BuilderConfig.of(context).themeConfig;
+    ThemeConfig themeConfig = Provider.of<BuilderConfig>(context).themeConfig;
 
     return Container(
       // height: Random().nextInt(250) + 400,

@@ -1,5 +1,5 @@
 
-class BuilderThemeConfig {
+class ThemeConfig {
 
 
   final double contentMaxWidth;
@@ -8,7 +8,7 @@ class BuilderThemeConfig {
   final double contentTBIndents;
   final double contentMBIndents;
 
-  const BuilderThemeConfig({
+  const ThemeConfig({
     this.contentMaxWidth = 2400.0,
     this.contentDTIndents = 111.0,
     this.contentTBIndents = 32.0,

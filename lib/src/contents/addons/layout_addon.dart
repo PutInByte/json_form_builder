@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:json_form_builder/json_form_builder.dart';
 import 'package:json_form_builder/src/contents/drawers/panel_drawer.dart';
 import 'package:json_form_builder/src/core/utils/theme_utils.dart';
+import 'package:provider/provider.dart';
 import '../drawers/content_drawer.dart';
 import '../drawers/navigator_drawer.dart';
 
@@ -34,7 +35,7 @@ class LayoutAddon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    BuilderThemeConfig themeConfig = BuilderConfig.of(context).themeConfig;
+    ThemeConfig themeConfig = Provider.of<BuilderConfig>(context).themeConfig;
 
     return Scaffold(
       appBar: appBar != null ? PreferredSize(

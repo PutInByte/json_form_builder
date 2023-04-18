@@ -39,7 +39,7 @@ class PagerDrawer extends StatefulWidget {
 }
 
 
-class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClientMixin {
+class _PagerDrawerState extends State<PagerDrawer> {
 
 
   List<Widget> pagers = [];
@@ -55,6 +55,7 @@ class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClient
 
     controller = Provider.of<JsonFormController>(context, listen: false).pagerController;
     dataState = Provider.of<JsonDataState>(context, listen: false);
+    config = Provider.of<BuilderConfig>(context, listen: false).pagerConfig;
 
     initChildPagers();
 
@@ -63,21 +64,16 @@ class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClient
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
-    config = BuilderConfig.of(context).pagerConfig;
 
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(config.borderRadius),
         color: Colors.white,
-        boxShadow: const [
-          BoxShadow(
+        boxShadow: const [ BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.08),
             blurRadius: 14,
             offset: Offset(0, 2),
-          ),
-        ],
+          ) ],
       ),
       clipBehavior: Clip.hardEdge,
       child: Pager(
@@ -85,6 +81,7 @@ class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClient
         animationDuration: config.animationDuration,
         alignment: config.alignment,
         keepAlive: config.keepAlive,
+        physics: config.parentPhysics,
         children: pagers,
       ),
     );
@@ -93,7 +90,6 @@ class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClient
 
 
   void initChildPagers() {
-
 
     for (int index = 0; index < dataState.panels.length; index++) {
 
@@ -114,10 +110,5 @@ class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClient
 
 
   }
-
-
-  @override
-  bool get wantKeepAlive => config.keepAlive;
-
 
 }

@@ -32,7 +32,6 @@ class _ContentDrawerState extends State<ContentDrawer> {
             md: 6,
             child: Container(
               margin: EdgeInsets.only(bottom: isDesktop ? 32.0 : 16.0, left: 32.0, top: 0),
-              decoration: BoxDecoration(color: Theme.of(context).colorScheme.background, borderRadius: BorderRadius.circular(8)),
               child: const AsideInformationCard(
                 title: 'Информация',
                 subTitle: "user?.fullName",
