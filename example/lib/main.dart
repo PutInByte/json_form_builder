@@ -18,131 +18,345 @@ class _MyAppState extends State<MyApp> {
   static const Map<String, dynamic> formData = {
     "data": [
       {
-        "id": 1,
+        "conditionFields": [],
+        "itemOrder": 1,
+        "colSpan": 0,
+        "conditionValues": [],
         "type": "panel",
-        "name": "Общие сведения",
-        "order": 1,
-        "items": [
-          {
-            "id": 3,
-            "title": "Первый?*",
-            "type": "block",
-            "order": 1,
-            "items": [
-              {
-                "id": 6,
-                "title": "",
-                "fieldName": "piType",
-                "source": {
-                  "id": 1,
-                  "source": "/ws/selection/declaration.select.piType"
-                },
-                "conditionValues": [],
-                "parent": null,
-                "conditionFields": [],
-                "order": 1,
-                "type": "integer",
-                "widget": "RadioSelect",
-                "colSpan": 2
-              }
-            ]
-          },
-          {
-            "id": 4,
-            "title": "Под первый*",
-            "type": "separator",
-            "order": 2,
-            "items": [
-              {
-                "id": 6,
-                "title": "",
-                "fieldName": "piType",
-                "source": {
-                  "id": 1,
-                  "source": "/ws/selection/declaration.select.piType"
-                },
-                "conditionValues": [],
-                "parent": null,
-                "conditionFields": [],
-                "order": 1,
-                "type": "integer",
-                "widget": "RadioSelect",
-                "colSpan": 2
-              }
-            ]
-          },
-          {
-            "id": 5,
-            "title": "Второй*",
-            "type": "block",
-            "order": 3,
-            "items": [
-              {
-                "id": 6,
-                "title": "",
-                "fieldName": "piType",
-                "source": {
-                  "id": 1,
-                  "source": "/ws/selection/declaration.select.piType"
-                },
-                "conditionValues": [],
-                "parent": null,
-                "conditionFields": [],
-                "order": 1,
-                "type": "integer",
-                "widget": "RadioSelect",
-                "colSpan": 2
-              }
-            ]
-          }
-        ]
-      },
-      {
+        "title": "Общие сведения",
+        "version": 0,
+        "isSeparated": false,
         "id": 2,
-        "type": "panel",
-        "name": "Сведения о транспортном средстве",
-        "order": 2,
         "items": [
           {
+            "conditionFields": [],
+            "itemOrder": 1,
+            "colSpan": 0,
+            "conditionValues": [],
+            "type": "block",
+            "version": 0,
+            "isSeparated": false,
             "id": 3,
-            "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
-            "type": "separator",
-            "order": 1,
-            "colSpan": 3,
             "items": [
               {
-                "id": 6,
-                "title": "",
-                "fieldName": "piType",
-                "source": {
-                  "id": 1,
-                  "source": "/ws/selection/declaration.select.piType"
-                },
-                "conditionValues": [],
-                "parent": null,
                 "conditionFields": [],
-                "order": 1,
-                "type": "integer",
-                "widget": "RadioSelect",
-                "colSpan": 2
+                "itemOrder": 1,
+                "colSpan": 0,
+                "conditionValues": [],
+                "type": "separator",
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "version": 0,
+                "isSeparated": false,
+                "id": 4,
+                "items": [
+                  {
+                    "conditionFields": [],
+                    "widget": "RadioSelect",
+                    "itemOrder": 1,
+                    "colSpan": 12,
+                    "conditionValues": [],
+                    "type": "field",
+                    "version": 0,
+                    "isSeparated": false,
+                    "field": {
+                      "name": "createdBy",
+                      "typeName": "User",
+                      "description": "",
+                      "json": false,
+                      "id": 7456,
+                      "packageName": "com.axelor.auth.db",
+                      "label": "Created by",
+                      "relationship": "ManyToOne",
+                      "version": 0
+                    },
+                    "name": "createdBy",
+                    "model": {
+                      "name": "SaleOrder",
+                      "fullName": "com.axelor.apps.sale.db.SaleOrder",
+                      "id": 313,
+                      "packageName": "com.axelor.apps.sale.db",
+                      "version": 0,
+                      "tableName": "SALE_SALE_ORDER"
+                    },
+                    "id": 5,
+                    "items": [],
+                    "fieldType": "User"
+                  }
+                ]
+              },
+              {
+                "conditionFields": [],
+                "itemOrder": 1,
+                "colSpan": 0,
+                "conditionValues": [],
+                "type": "separator",
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "version": 0,
+                "isSeparated": false,
+                "id": 4,
+                "items": [
+                  {
+                    "conditionFields": [],
+                    "widget": "RadioSelect",
+                    "itemOrder": 1,
+                    "colSpan": 12,
+                    "conditionValues": [],
+                    "type": "field",
+                    "version": 0,
+                    "isSeparated": false,
+                    "field": {
+                      "name": "createdBy",
+                      "typeName": "User",
+                      "description": "",
+                      "json": false,
+                      "id": 7456,
+                      "packageName": "com.axelor.auth.db",
+                      "label": "Created by",
+                      "relationship": "ManyToOne",
+                      "version": 0
+                    },
+                    "name": "createdBy",
+                    "model": {
+                      "name": "SaleOrder",
+                      "fullName": "com.axelor.apps.sale.db.SaleOrder",
+                      "id": 313,
+                      "packageName": "com.axelor.apps.sale.db",
+                      "version": 0,
+                      "tableName": "SALE_SALE_ORDER"
+                    },
+                    "id": 5,
+                    "items": [],
+                    "fieldType": "User"
+                  }
+                ]
+              },
+              {
+                "conditionFields": [],
+                "itemOrder": 1,
+                "colSpan": 0,
+                "conditionValues": [],
+                "type": "separator",
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "version": 0,
+                "isSeparated": false,
+                "id": 4,
+                "items": [
+                  {
+                    "conditionFields": [],
+                    "widget": "RadioSelect",
+                    "itemOrder": 1,
+                    "colSpan": 12,
+                    "conditionValues": [],
+                    "type": "field",
+                    "version": 0,
+                    "isSeparated": false,
+                    "field": {
+                      "name": "createdBy",
+                      "typeName": "User",
+                      "description": "",
+                      "json": false,
+                      "id": 7456,
+                      "packageName": "com.axelor.auth.db",
+                      "label": "Created by",
+                      "relationship": "ManyToOne",
+                      "version": 0
+                    },
+                    "name": "createdBy",
+                    "model": {
+                      "name": "SaleOrder",
+                      "fullName": "com.axelor.apps.sale.db.SaleOrder",
+                      "id": 313,
+                      "packageName": "com.axelor.apps.sale.db",
+                      "version": 0,
+                      "tableName": "SALE_SALE_ORDER"
+                    },
+                    "id": 5,
+                    "items": [],
+                    "fieldType": "User"
+                  }
+                ]
               }
-            ]
+            ],
+            "info": "С помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни."
+          },
+          {
+            "conditionFields": [],
+            "itemOrder": 1,
+            "colSpan": 0,
+            "conditionValues": [],
+            "type": "block",
+            "version": 0,
+            "isSeparated": false,
+            "id": 3,
+            "items": [
+              {
+                "conditionFields": [],
+                "itemOrder": 1,
+                "colSpan": 0,
+                "conditionValues": [],
+                "type": "separator",
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "version": 0,
+                "isSeparated": false,
+                "id": 4,
+                "items": [
+                  {
+                    "conditionFields": [],
+                    "widget": "RadioSelect",
+                    "itemOrder": 1,
+                    "colSpan": 12,
+                    "conditionValues": [],
+                    "type": "field",
+                    "version": 0,
+                    "isSeparated": false,
+                    "field": {
+                      "name": "createdBy",
+                      "typeName": "User",
+                      "description": "",
+                      "json": false,
+                      "id": 7456,
+                      "packageName": "com.axelor.auth.db",
+                      "label": "Created by",
+                      "relationship": "ManyToOne",
+                      "version": 0
+                    },
+                    "name": "createdBy",
+                    "model": {
+                      "name": "SaleOrder",
+                      "fullName": "com.axelor.apps.sale.db.SaleOrder",
+                      "id": 313,
+                      "packageName": "com.axelor.apps.sale.db",
+                      "version": 0,
+                      "tableName": "SALE_SALE_ORDER"
+                    },
+                    "id": 5,
+                    "items": [],
+                    "fieldType": "User"
+                  }
+                ]
+              },
+            ],
+            "info": "С помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни."
           }
         ]
       },
       {
-        "id": 3,
+        "conditionFields": [],
+        "itemOrder": 1,
+        "colSpan": 0,
+        "conditionValues": [],
         "type": "panel",
-        "name": "Сведения о перевозке товара",
-        "order": 3,
-        "items": [ ]
-      },
-      {
-        "id": 4,
-        "type": "panel",
-        "name": "Сведения о товарной партии",
-        "order": 4,
-        "items": [ ]
+        "title": "Общие сведения",
+        "version": 0,
+        "isSeparated": false,
+        "id": 2,
+        "items": [
+          {
+            "conditionFields": [],
+            "itemOrder": 1,
+            "colSpan": 0,
+            "conditionValues": [],
+            "type": "block",
+            "version": 0,
+            "isSeparated": false,
+            "id": 3,
+            "items": [
+              {
+                "conditionFields": [],
+                "itemOrder": 1,
+                "colSpan": 0,
+                "conditionValues": [],
+                "type": "separator",
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "version": 0,
+                "isSeparated": false,
+                "id": 4,
+                "items": [
+                  {
+                    "conditionFields": [],
+                    "widget": "RadioSelect",
+                    "itemOrder": 1,
+                    "colSpan": 12,
+                    "conditionValues": [],
+                    "type": "field",
+                    "version": 0,
+                    "isSeparated": false,
+                    "field": {
+                      "name": "createdBy",
+                      "typeName": "User",
+                      "description": "",
+                      "json": false,
+                      "id": 7456,
+                      "packageName": "com.axelor.auth.db",
+                      "label": "Created by",
+                      "relationship": "ManyToOne",
+                      "version": 0
+                    },
+                    "name": "createdBy",
+                    "model": {
+                      "name": "SaleOrder",
+                      "fullName": "com.axelor.apps.sale.db.SaleOrder",
+                      "id": 313,
+                      "packageName": "com.axelor.apps.sale.db",
+                      "version": 0,
+                      "tableName": "SALE_SALE_ORDER"
+                    },
+                    "id": 5,
+                    "items": [],
+                    "fieldType": "User"
+                  }
+                ]
+              },
+              {
+                "conditionFields": [],
+                "itemOrder": 1,
+                "colSpan": 0,
+                "conditionValues": [],
+                "type": "separator",
+                "title": "Каким видом транспорта планируете прибыть в Кыргызскую Республику?*",
+                "version": 0,
+                "isSeparated": false,
+                "id": 4,
+                "items": [
+                  {
+                    "conditionFields": [],
+                    "widget": "RadioSelect",
+                    "itemOrder": 1,
+                    "colSpan": 12,
+                    "conditionValues": [],
+                    "type": "field",
+                    "version": 0,
+                    "isSeparated": false,
+                    "field": {
+                      "name": "createdBy",
+                      "typeName": "User",
+                      "description": "",
+                      "json": false,
+                      "id": 7456,
+                      "packageName": "com.axelor.auth.db",
+                      "label": "Created by",
+                      "relationship": "ManyToOne",
+                      "version": 0
+                    },
+                    "name": "createdBy",
+                    "model": {
+                      "name": "SaleOrder",
+                      "fullName": "com.axelor.apps.sale.db.SaleOrder",
+                      "id": 313,
+                      "packageName": "com.axelor.apps.sale.db",
+                      "version": 0,
+                      "tableName": "SALE_SALE_ORDER"
+                    },
+                    "id": 5,
+                    "items": [],
+                    "fieldType": "User"
+                  }
+                ]
+              },
+            ],
+            "info": "С помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни."
+          },
+        ]
       },
     ]
   };
@@ -160,11 +374,11 @@ class _MyAppState extends State<MyApp> {
               childrenPhysics: NeverScrollableScrollPhysics(),
               parentPhysics: NeverScrollableScrollPhysics()
             ),
-            eventConfig: BuilderEventConfig(
-              // onNextServerSide: () async {
-              //     await Future.delayed(const Duration(seconds: 2));
-              // }
-            ),
+            // eventConfig: BuilderEventConfig(
+            //   serverSideEvent: () async {
+            //       await Future.delayed(const Duration(seconds: 2));
+            //   }
+            // ),
           ),
         ),
       ),

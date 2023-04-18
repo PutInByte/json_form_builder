@@ -70,6 +70,7 @@ class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClient
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(config.borderRadius),
+        color: Colors.white,
         boxShadow: const [
           BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.08),
@@ -91,16 +92,12 @@ class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClient
   }
 
 
-
   void initChildPagers() {
 
 
     for (int index = 0; index < dataState.panels.length; index++) {
 
-
-      List<Widget> children = BlockParser.parse(dataState.panels[index].blocks);
-
-
+      List<Widget> children = BlockParser.parse(dataState.panels[index].items);
 
       Widget pager = Pager(
         controller: controller.getChildPageController(index),
@@ -111,10 +108,10 @@ class _PagerDrawerState extends State<PagerDrawer> with AutomaticKeepAliveClient
         children: children
       );
 
-
       pagers.add(pager);
 
     }
+
 
   }
 

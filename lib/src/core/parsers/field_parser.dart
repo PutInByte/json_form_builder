@@ -5,7 +5,7 @@ import 'package:json_form_builder/src/contents/components/pager_empty_card_layou
 import 'package:json_form_builder/src/models/builder_model.dart';
 
 
-class BlockParser {
+class FieldParser {
 
 
   static List<Widget> parse( List<Map<String, dynamic>> data ) {

@@ -14,11 +14,11 @@ class BuildingStatusPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
 
-          Text("Пожалуйста, подождите пока идет отрисовка страницы"),
+          Text( "Пожалуйста, подождите пока идет отрисовка страницы", textAlign: TextAlign.center ),
 
-          SizedBox(height: 16),
+          SizedBox( height: 16 ),
 
-          CupertinoActivityIndicator()
+          CupertinoActivityIndicator( )
 
         ],
       ),

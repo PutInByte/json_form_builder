@@ -18,19 +18,13 @@ class _ContentDrawerState extends State<ContentDrawer> {
   @override
   Widget build(BuildContext context) {
 
-    DeviceScreenType deviceScreenType = getDeviceType(MediaQuery.of(context).size);
-    bool isDesktop = deviceScreenType == DeviceScreenType.desktop;
+    bool isDesktop = getDeviceType(MediaQuery.of(context).size) == DeviceScreenType.desktop;
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-
+      crossAxisAlignment: isDesktop ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       children: [
 
-        ResponsiveGridCol(
-          lg: 7,
-          md: 6,
-          child: const PagerDrawer(),
-        ),
+        ResponsiveGridCol( lg: 7, md: 6, child: const PagerDrawer() ),
 
         if (isDesktop)
           ResponsiveGridCol(

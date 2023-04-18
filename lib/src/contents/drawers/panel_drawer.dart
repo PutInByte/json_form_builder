@@ -72,15 +72,14 @@ class _PanelDrawerState extends State<PanelDrawer> {
 
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: maxWidth),
                   child: PercentStepper(
                     steps: [
 
                       for (int index = 0; index < dataState.panels.length; index++)
-                        StepperStep(
-                          title: dataState.panels[index].name,
-                        )
+                        StepperStep( title: dataState.panels[index].title )
 
                     ],
                   ),
