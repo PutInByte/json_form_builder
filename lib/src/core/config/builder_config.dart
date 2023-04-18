@@ -1,37 +1,20 @@
 
 import 'package:flutter/material.dart';
-import 'builder_event_config.dart';
-import 'builder_theme_config.dart';
+import 'event_config.dart';
+import 'theme_config.dart';
 import 'pager_config.dart';
 
 
-class BuilderConfig {
+class BuilderConfig extends ChangeNotifier {
 
   final PagerConfig pagerConfig;
-  final BuilderEventConfig eventConfig;
-  final BuilderThemeConfig themeConfig;
+  final EventConfig eventConfig;
+  final ThemeConfig themeConfig;
 
-  const BuilderConfig({
+  BuilderConfig({
     this.pagerConfig = const PagerConfig(),
-    this.eventConfig = const BuilderEventConfig(),
-    this.themeConfig = const BuilderThemeConfig(),
+    this.eventConfig = const EventConfig(),
+    this.themeConfig = const ThemeConfig(),
   });
-
-
-  static BuilderConfig of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<BuilderConfigScope>()!.config;
-  }
-
-}
-
-
-class BuilderConfigScope extends InheritedWidget {
-
-  const BuilderConfigScope({ Key? key, required this.config, required Widget child }) : super(key: key, child: child);
-
-  final BuilderConfig config;
-
-  @override
-  bool updateShouldNotify(BuilderConfigScope oldWidget) => false;
 
 }

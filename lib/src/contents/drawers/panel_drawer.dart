@@ -23,6 +23,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
 
   late final JsonFormController controller;
   late final JsonDataState dataState;
+  late final ThemeConfig themeConfig;
 
 
   @override
@@ -32,6 +33,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
 
     controller = Provider.of<JsonFormController>(context, listen: false);
     dataState = Provider.of<JsonDataState>(context, listen: false);
+    themeConfig = Provider.of<BuilderConfig>(context, listen: false).themeConfig;
 
   }
 
@@ -40,8 +42,6 @@ class _PanelDrawerState extends State<PanelDrawer> {
   Widget build(BuildContext context) {
 
     double maxWidth = 820.0;
-
-    BuilderThemeConfig themeConfig = BuilderConfig.of(context).themeConfig;
 
     Size screenSize = MediaQuery.of(context).size;
     DeviceScreenType deviceScreenType = getDeviceType(screenSize);

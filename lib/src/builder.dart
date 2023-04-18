@@ -26,6 +26,7 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
 
 
   final JsonFormController _controller = JsonFormController( );
+  late final BuilderConfig _builderConfig = widget.config ?? BuilderConfig();
   late final JsonDataState _jsonDataState;
 
 
@@ -46,25 +47,24 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
 
         ChangeNotifierProvider<JsonDataState>(create: (context) => _jsonDataState),
 
+        ChangeNotifierProvider<BuilderConfig>(create: (context) => _builderConfig),
+
       ],
-      child: BuilderConfigScope(
-        config: widget.config ?? const BuilderConfig(),
-        child: FutureBuilder<void>(
-          future: _jsonDataState.init(),
-          builder: (_, __) {
+      child: FutureBuilder<void>(
+        future: _jsonDataState.init(),
+        builder: (_, __) {
 
-            if (_jsonDataState.isInitialized) {
-              return const LayoutDrawer(
-                navigatorDrawer: NavigatorDrawer(),
-                contentDrawer: ContentDrawer(),
-                panelDrawer: PanelDrawer(),
-              );
-            }
+          if (_jsonDataState.isInitialized) {
+            return const LayoutDrawer(
+              navigatorDrawer: NavigatorDrawer(),
+              contentDrawer: ContentDrawer(),
+              panelDrawer: PanelDrawer(),
+            );
+          }
 
-            return const BuildingStatusPage();
+          return const BuildingStatusPage();
 
-          },
-        ),
+        },
       ),
     );
 

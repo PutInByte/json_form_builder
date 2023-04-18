@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:json_form_builder/json_form_builder.dart';
+import 'package:json_form_builder/src/core/config/theme_config.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // class ThemeUtils {
@@ -9,7 +9,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 //
 // }
 
-extension ThemeUtils on BuilderThemeConfig {
+extension ThemeUtils on ThemeConfig {
 
 
   double getVerticalContentIndent (context) {

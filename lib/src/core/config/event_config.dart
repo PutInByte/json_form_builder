@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/src/core/utils/typedefs.dart';
 
-class BuilderEventConfig {
+class EventConfig {
 
   final VoidCallback? onInit;
   final VoidCallback? onDispose;
@@ -14,7 +14,7 @@ class BuilderEventConfig {
   final VoidCallback? onStart;
   final ServerSideEvent? serverSideEvent;
 
-  const BuilderEventConfig({
+  const EventConfig({
     this.onInit,
     this.onDispose,
     this.onBuild,

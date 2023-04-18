@@ -25,13 +25,11 @@ class AsideInformationCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Theme.of(context).cardColor,
-        boxShadow: const [
-          BoxShadow(
+        boxShadow: const [ BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.08),
             blurRadius: 14,
             offset: Offset(0, 2),
-          ),
-        ],
+          ) ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

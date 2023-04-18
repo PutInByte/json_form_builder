@@ -31,8 +31,8 @@ class Pager extends StatefulWidget {
     required this.controller,
     this.alignment = Alignment.center,
     this.keepAlive = true,
-    this.animationDuration = const Duration(milliseconds: 300),
-    this.physics = const AlwaysScrollableScrollPhysics(),
+    required this.animationDuration,
+    required this.physics,
   }) : assert(children.length != 0, 'У вас нету дочерних страниц'), super(key: key);
 
 
