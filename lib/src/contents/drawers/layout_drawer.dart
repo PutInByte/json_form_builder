@@ -7,6 +7,7 @@ import 'navigator_drawer.dart';
 
 class LayoutDrawer extends StatelessWidget {
 
+
   const LayoutDrawer({
     Key? key,
     required this.contentDrawer,
@@ -14,9 +15,11 @@ class LayoutDrawer extends StatelessWidget {
     required this.navigatorDrawer
   }) : super(key: key);
 
+
   final ContentDrawer contentDrawer;
   final PanelDrawer panelDrawer;
   final NavigatorDrawer navigatorDrawer;
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,7 @@ class LayoutDrawer extends StatelessWidget {
         contentDrawer: contentDrawer,
       )
     );
-
   }
+
+
 }

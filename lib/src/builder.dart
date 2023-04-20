@@ -13,13 +13,18 @@ import 'core/states/json_data_state.dart';
 
 class JsonFormBuilder extends StatefulWidget {
 
-  const JsonFormBuilder({ Key? key, required this.data, this.config }) : super(key: key);
+  const JsonFormBuilder({
+    Key? key,
+    required this.data,
+    this.config
+  }) : super(key: key);
 
   final Map<String, dynamic> data;
   final BuilderConfig? config;
 
   @override
   State<StatefulWidget> createState() => _JsonFormBuilderState();
+
 }
 
 class _JsonFormBuilderState extends State<JsonFormBuilder> {
