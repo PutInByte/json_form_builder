@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/json_form_builder.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
-import 'package:json_form_builder/src/core/states/json_data_state.dart';
+import 'package:json_form_builder/src/core/states/base/global_state.dart';
+import 'package:json_form_builder/src/core/states/extends/panel_states.dart';
 import 'package:json_form_builder/src/core/utils/theme_utils.dart';
 import 'package:json_form_builder/src/dependencies/stepper/addons/stepper_step_addon.dart';
 import 'package:json_form_builder/src/dependencies/stepper/percent_stepper.dart';
@@ -22,7 +23,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
 
 
   late final JsonFormController controller;
-  late final JsonDataState dataState;
+  late final PanelState panelState;
   late final ThemeConfig themeConfig;
 
 
@@ -32,7 +33,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
     super.initState();
 
     controller = Provider.of<JsonFormController>(context, listen: false);
-    dataState = Provider.of<JsonDataState>(context, listen: false);
+    panelState = Provider.of<GlobalState>(context, listen: false).panelState;
     themeConfig = Provider.of<BuilderConfig>(context, listen: false).themeConfig;
 
   }
@@ -51,7 +52,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
 
     double cardWidth = isDesktop ? 400 : deviceScreenType == DeviceScreenType.tablet ? 120.0 : 82.0;
 
-    double cardMaxWidth = (cardWidth + (12 * 2)) * dataState.panels.length;
+    double cardMaxWidth = (cardWidth + (12 * 2)) * panelState.panels.length;
     double mediaQueryWidth = screenSize.width - (padding * 2);
 
     if (mediaQueryWidth >= cardMaxWidth) maxWidth = mediaQueryWidth;
@@ -78,8 +79,8 @@ class _PanelDrawerState extends State<PanelDrawer> {
                   child: PercentStepper(
                     steps: [
 
-                      for (int index = 0; index < dataState.panels.length; index++)
-                        StepperStep( title: dataState.panels[index].title )
+                      for (int index = 0; index < panelState.panels.length; index++)
+                        StepperStep( title: panelState.panels[index].title )
 
                     ],
                   ),
@@ -95,7 +96,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
                   child: Row(
                     children: [
 
-                      for ( int index = 0; index < dataState.panels.length; index++ ) ...[
+                      for ( int index = 0; index < panelState.panels.length; index++ ) ...[
                         Expanded(
                           child: Container(
                             margin: const EdgeInsets.symmetric( horizontal: 5.0 ),

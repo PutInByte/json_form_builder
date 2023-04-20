@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:json_form_builder/src/contents/drawers/layout_drawer.dart';
 import 'package:json_form_builder/src/contents/drawers/panel_drawer.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
+import 'package:json_form_builder/src/core/states/base/global_state.dart';
 import 'package:provider/provider.dart';
 import 'contents/components/building_status_page.dart';
 import 'contents/drawers/content_drawer.dart';
 import 'contents/drawers/navigator_drawer.dart';
 import 'core/config/builder_config.dart';
-import 'core/states/json_data_state.dart';
 
 
 class JsonFormBuilder extends StatefulWidget {
@@ -32,7 +32,7 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
 
   final JsonFormController _controller = JsonFormController( );
   late final BuilderConfig _builderConfig = widget.config ?? BuilderConfig();
-  late final JsonDataState _jsonDataState;
+  final GlobalState _globalState = GlobalState.instance;
 
 
   @override
@@ -50,16 +50,16 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
 
         ChangeNotifierProvider<JsonFormController>(create: (context) => _controller),
 
-        ChangeNotifierProvider<JsonDataState>(create: (context) => _jsonDataState),
+        ChangeNotifierProvider<GlobalState>(create: (context) => _globalState),
 
         ChangeNotifierProvider<BuilderConfig>(create: (context) => _builderConfig),
 
       ],
       child: FutureBuilder<void>(
-        future: _jsonDataState.init(),
+        future: _globalState.init(widget.data),
         builder: (_, __) {
 
-          if (_jsonDataState.isInitialized) {
+          if (_globalState.isInitialized) {
             return const LayoutDrawer(
               navigatorDrawer: NavigatorDrawer(),
               contentDrawer: ContentDrawer(),
@@ -78,8 +78,6 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
 
 
   void _init() {
-
-    _jsonDataState = JsonDataState(data: widget.data);
 
     _controller.pagerController
       ..onChanged = widget.config?.eventConfig.onChangeContent

@@ -200,7 +200,7 @@ class _MyAppState extends State<MyApp> {
         "colSpan": 0,
         "conditionValues": [],
         "type": "panel",
-        "title": "Общие сведения",
+        "title": "Транспорт",
         "version": 0,
         "isSeparated": false,
         "id": 2,
@@ -328,7 +328,7 @@ class _MyAppState extends State<MyApp> {
               childrenPhysics: NeverScrollableScrollPhysics(),
               parentPhysics: NeverScrollableScrollPhysics()
             ),
-            // eventConfig: BuilderEventConfig(
+            // eventConfig: EventConfig(
             //   serverSideEvent: () async {
             //       await Future.delayed(const Duration(seconds: 2));
             //   }

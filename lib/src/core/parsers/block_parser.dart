@@ -20,11 +20,9 @@ class BlockParser {
 
       if (blocks[index].items.isNotEmpty) {
 
-        widgets.add(
-          PagerCardLayoutFolder(
+        widgets.add( PagerCardLayoutFolder(
             children: _separatorParser( blocks[index].items )
-          )
-        );
+          ) );
 
       }
       else widgets.add( const PagerEmptyCardLayout() );
@@ -34,6 +32,8 @@ class BlockParser {
     return widgets;
 
   }
+
+
 
 
   static List<Widget> _separatorParser( List<Map<String, dynamic>> separatorItems ) {
