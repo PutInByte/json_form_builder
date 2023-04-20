@@ -38,7 +38,6 @@ class PagerController extends ChangeNotifier {
 
     _isChangingPage = true;
 
-
     final PageController controller = _getOrPutNestedPageController( currentPage );
 
 
