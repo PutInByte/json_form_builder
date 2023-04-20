@@ -16,7 +16,6 @@ class PagerConfig {
 
   final double borderRadius;
 
-
   const PagerConfig({
     this.animationDuration = const Duration(milliseconds: 200),
     this.animationCurve = Curves.easeInOut,
@@ -26,6 +25,5 @@ class PagerConfig {
     this.borderRadius = 10,
     this.alignment = Alignment.topCenter,
   });
-
 
 }
