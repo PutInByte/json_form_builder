@@ -16,20 +16,20 @@ class BlockParser {
 
     List<BuilderModel> blocks = data.map<BuilderModel>((item) => BuilderModel.fromJson(item)).toList();
 
-    for (int index = 0; index < blocks.length; index++) {
-
-      if (blocks[index].items.isNotEmpty) {
-
-        widgets.add(
-            PagerCardLayoutFolder(
-            children: _separatorParser( blocks[index].items )
-          )
-        );
-
-      }
-      else widgets.add( const PagerEmptyCardLayout() );
-
-    }
+    // for (int index = 0; index < blocks.length; index++) {
+    //
+    //   if (blocks[index].items.isNotEmpty) {
+    //
+    //     widgets.add(
+    //         PagerCardLayoutFolder(
+    //         children: _separatorParser( blocks[index].items )
+    //       )
+    //     );
+    //
+    //   }
+    //   else widgets.add( const PagerEmptyCardLayout() );
+    //
+    // }
 
     return widgets;
 

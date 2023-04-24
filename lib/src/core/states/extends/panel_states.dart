@@ -4,9 +4,9 @@ import 'package:json_form_builder/src/models/builder_model.dart';
 
 class PanelState {
 
-  final State _state;
+  final BuilderState _state;
 
-  PanelState({ required State state }) : _state = state;
+  PanelState({ required BuilderState state }) : _state = state;
 
 
   final List<Map<String, dynamic>> _panels = [ ];
@@ -24,9 +24,8 @@ class PanelState {
 
       _panels.add({
         'id': _state.panels[ index ][ "id" ],
-        'index': index,
         'panel': BuilderModel.fromJson( _state.panels[ index ] ),
-        'widget': StepperStep( title: _state.panels[ index ][ "title" ] )
+        'widget': StepperStep( title: _state.panels[ index ][ "title" ] ),
       });
 
     }

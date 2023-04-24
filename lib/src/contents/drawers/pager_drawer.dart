@@ -22,6 +22,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/json_form_builder.dart';
+import 'package:json_form_builder/src/contents/components/pager_empty_card_layout.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
 import 'package:json_form_builder/src/controllers/pager_controller.dart';
 import 'package:json_form_builder/src/core/parsers/block_parser.dart';
@@ -93,7 +94,11 @@ class _PagerDrawerState extends State<PagerDrawer> {
 
     for (int index = 0; index < globalState.panels.length; index++) {
 
-      List<Widget> children = BlockParser.parse(globalState.panels[index]["blocks"]);
+      List<Widget> children = globalState.blockWidgets( globalState.panels[ index ][ "id" ] ) ;
+
+      if (children.isEmpty) {
+        children = [ const PagerEmptyCardLayout() ];
+      }
 
       Widget pager = Pager(
         controller: controller.getChildPageController(index),
@@ -101,7 +106,7 @@ class _PagerDrawerState extends State<PagerDrawer> {
         physics: config.childrenPhysics,
         alignment: config.alignment,
         animationDuration: config.animationDuration,
-        children: children
+        children: children,
       );
 
       pagers.add(pager);

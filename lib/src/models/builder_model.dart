@@ -11,7 +11,6 @@ class BuilderModel {
   final bool isSeparated;
   final List<dynamic> conditionFields;
   final List<dynamic> conditionValues;
-  final List<Map<String, dynamic>> items;
 
 
   const BuilderModel({
@@ -25,7 +24,6 @@ class BuilderModel {
     required this.isSeparated,
     required this.conditionFields,
     required this.conditionValues,
-    required this.items,
   });
 
 
@@ -41,7 +39,6 @@ class BuilderModel {
       isSeparated: json["isSeparated"],
       conditionFields: json["conditionFields"] ?? [],
       conditionValues: json["conditionValues"] ?? [],
-      items: json["items"],
     );
   }
 

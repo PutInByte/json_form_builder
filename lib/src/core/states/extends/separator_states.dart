@@ -2,9 +2,9 @@ import 'package:json_form_builder/src/core/states/base/state.dart';
 
 class SeparatorState {
 
-  final State _state;
+  final BuilderState _state;
 
-  SeparatorState({required State state}) : _state = state;
+  SeparatorState({required BuilderState state}) : _state = state;
 
 
   final List<Map<String, dynamic>> _separator = [ ];
