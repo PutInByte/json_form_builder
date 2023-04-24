@@ -4,11 +4,18 @@ class SeparatorState {
 
   final State _state;
 
-  const SeparatorState({required State state}) : _state = state;
+  SeparatorState({required State state}) : _state = state;
 
-  Future<void> init () async {
 
-    // await Future.delayed(const Duration(seconds: 3));
+  final List<Map<String, dynamic>> _separator = [ ];
+
+  List<Map<String, dynamic>> get separator => _separator;
+
+
+  Future<List<Map<String, dynamic>>> init () async {
+
+
+    return [];
 
   }
 

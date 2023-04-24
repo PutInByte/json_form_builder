@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
         "title": "Общие сведения",
         "version": 0,
         "isSeparated": false,
-        "id": 2,
+        "id": 1,
         "items": [
           {
             "conditionFields": [],

@@ -26,7 +26,6 @@ import 'package:json_form_builder/src/controllers/json_form_controller.dart';
 import 'package:json_form_builder/src/controllers/pager_controller.dart';
 import 'package:json_form_builder/src/core/parsers/block_parser.dart';
 import 'package:json_form_builder/src/core/states/base/global_state.dart';
-import 'package:json_form_builder/src/core/states/extends/panel_states.dart';
 import 'package:json_form_builder/src/dependencies/pager/pager.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +45,7 @@ class _PagerDrawerState extends State<PagerDrawer> {
   List<Widget> pagers = [];
 
   late final PagerController controller;
-  late final PanelState panelState;
+  late final GlobalState globalState;
   PagerConfig config = const PagerConfig();
 
 
@@ -55,7 +54,7 @@ class _PagerDrawerState extends State<PagerDrawer> {
     super.initState();
 
     controller = Provider.of<JsonFormController>(context, listen: false).pagerController;
-    panelState = Provider.of<GlobalState>(context, listen: false).panelState;
+    globalState = Provider.of<GlobalState>(context, listen: false);
     config = Provider.of<BuilderConfig>(context, listen: false).pagerConfig;
 
     initChildPagers();
@@ -92,9 +91,9 @@ class _PagerDrawerState extends State<PagerDrawer> {
 
   void initChildPagers() {
 
-    for (int index = 0; index < panelState.panels.length; index++) {
+    for (int index = 0; index < globalState.panels.length; index++) {
 
-      List<Widget> children = BlockParser.parse(panelState.panels[index].items);
+      List<Widget> children = BlockParser.parse(globalState.panels[index]["blocks"]);
 
       Widget pager = Pager(
         controller: controller.getChildPageController(index),

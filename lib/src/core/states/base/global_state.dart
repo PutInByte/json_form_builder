@@ -14,39 +14,64 @@ class GlobalState extends ChangeNotifier {
 
   factory GlobalState() => instance;
 
-
   final State _state = State();
+
+
+
+  bool _isInitialized = false;
+  bool get isInitialized => _isInitialized;
+
 
   late final PanelState _panelState = PanelState(state: _state);
   late final BlockState _blockState = BlockState(state: _state);
   late final SeparatorState _separatorState = SeparatorState(state: _state);
 
+  final List<Map<String, dynamic>> _panels = [ ];
+  final List<Map<String, dynamic>> _blocks = [ ];
+  final List<Map<String, dynamic>> _separators = [ ];
 
-  bool _isInitialized = false;
-
-  bool get isInitialized => _isInitialized;
 
   PanelState get panelState => _panelState;
   BlockState get blockState => _blockState;
   SeparatorState get separatorState => _separatorState;
 
+  List<Map<String, dynamic>> get panels => _panels;
+  List<Map<String, dynamic>> get blocks => _blocks;
+  List<Map<String, dynamic>> get separators => _separators;
 
-  Future<void> init (Map<String, dynamic> value) async {
+
+
+
+
+  Future<void> init( Map<String, dynamic> data ) async {
 
     if (_isInitialized) return;
 
-    _state.data = value["data"];
+    _updateStates(data);
 
-    await Future.wait([
-      _panelState.init(),
-      _blockState.init(),
-      _separatorState.init(),
-    ]);
+    await _initStates();
 
 
     _isInitialized = true;
 
   }
 
+
+
+  Future<void> _updateStates( Map<String, dynamic> data ) async {
+    _state.data = data[ "data" ];
+
+    _panels.clear();
+    _blocks.clear();
+    _separators.clear();
+
+  }
+
+
+  Future<void> _initStates() async {
+    _panels.addAll( await _panelState.init() );
+    _blocks.addAll( await _blockState.init() );
+    _separators.addAll( await _separatorState.init() );
+  }
 
 }
