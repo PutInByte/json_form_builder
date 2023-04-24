@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:json_form_builder/json_form_builder.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
 import 'package:json_form_builder/src/core/states/base/global_state.dart';
-import 'package:json_form_builder/src/core/states/extends/panel_states.dart';
 import 'package:json_form_builder/src/core/utils/theme_utils.dart';
 import 'package:json_form_builder/src/dependencies/stepper/addons/stepper_step_addon.dart';
 import 'package:json_form_builder/src/dependencies/stepper/percent_stepper.dart';
@@ -23,7 +22,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
 
 
   late final JsonFormController controller;
-  late final PanelState panelState;
+  late final GlobalState globalState;
   late final ThemeConfig themeConfig;
 
 
@@ -33,7 +32,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
     super.initState();
 
     controller = Provider.of<JsonFormController>(context, listen: false);
-    panelState = Provider.of<GlobalState>(context, listen: false).panelState;
+    globalState = Provider.of<GlobalState>(context, listen: false);
     themeConfig = Provider.of<BuilderConfig>(context, listen: false).themeConfig;
 
   }
@@ -52,7 +51,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
 
     double cardWidth = isDesktop ? 400 : deviceScreenType == DeviceScreenType.tablet ? 120.0 : 82.0;
 
-    double cardMaxWidth = (cardWidth + (12 * 2)) * panelState.panels.length;
+    double cardMaxWidth = (cardWidth + (12 * 2)) * globalState.panels.length;
     double mediaQueryWidth = screenSize.width - (padding * 2);
 
     if (mediaQueryWidth >= cardMaxWidth) maxWidth = mediaQueryWidth;
@@ -77,12 +76,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: maxWidth),
                   child: PercentStepper(
-                    steps: [
-
-                      for (int index = 0; index < panelState.panels.length; index++)
-                        StepperStep( title: panelState.panels[index].title )
-
-                    ],
+                    steps: globalState.panels.map((step) => step['widget'] as StepperStep).toList(),
                   ),
                 ),
               ),
@@ -94,22 +88,16 @@ class _PanelDrawerState extends State<PanelDrawer> {
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: maxWidth),
                   child: Row(
-                    children: [
-
-                      for ( int index = 0; index < panelState.panels.length; index++ ) ...[
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.symmetric( horizontal: 5.0 ),
-                            height: 5,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: const Color.fromRGBO( 1, 114, 206, 1 ),
-                            ),
-                          )
-                        ),
-                      ]
-
-                    ],
+                    children: globalState.panels.map((sizer) => Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric( horizontal: 5.0 ),
+                          height: 5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: const Color.fromRGBO( 1, 114, 206, 1 ),
+                          ),
+                        )
+                    )).toList(),
                   ),
                 )
 
