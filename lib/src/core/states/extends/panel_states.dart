@@ -9,29 +9,23 @@ class PanelState {
   PanelState({ required BuilderState state }) : _state = state;
 
 
-  final List<Map<String, dynamic>> _panels = [ ];
+  Future<void> init () async {
 
-  List<Map<String, dynamic>> get panels => _panels;
-
-
-
-  Future<List<Map<String, dynamic>>> init () async {
-
-    _panels.clear();
+    final List<Map<String, dynamic>> panels = [ ];
 
 
     for (int index = 0; index < _state.panels.length; index++) {
 
-      _panels.add({
-        'id': _state.panels[ index ][ "id" ],
-        'panel': BuilderModel.fromJson( _state.panels[ index ] ),
-        'widget': StepperStep( title: _state.panels[ index ][ "title" ] ),
-      });
+        panels.add({
+          'id': _state.panels[ index ][ "id" ],
+          "hidden": _state.block( index ).isEmpty,
+          'panel': BuilderModel.fromJson( _state.panels[ index ] ),
+          'widget': StepperStep( title: _state.panels[ index ][ "title" ] ),
+        });
 
     }
 
-
-    return _panels;
+    _state.panels = panels;
 
   }
 

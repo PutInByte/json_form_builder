@@ -51,7 +51,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
 
     double cardWidth = isDesktop ? 400 : deviceScreenType == DeviceScreenType.tablet ? 120.0 : 82.0;
 
-    double cardMaxWidth = (cardWidth + (12 * 2)) * globalState.panels.length;
+    double cardMaxWidth = (cardWidth + (12 * 2)) * globalState.getPanels.length;
     double mediaQueryWidth = screenSize.width - (padding * 2);
 
     if (mediaQueryWidth >= cardMaxWidth) maxWidth = mediaQueryWidth;
@@ -76,7 +76,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: maxWidth),
                   child: PercentStepper(
-                    steps: globalState.panels.map((step) => step['widget'] as StepperStep).toList(),
+                    steps: globalState.getPanels.map((step) => step['widget'] as StepperStep).toList(),
                   ),
                 ),
               ),
@@ -88,7 +88,7 @@ class _PanelDrawerState extends State<PanelDrawer> {
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: maxWidth),
                   child: Row(
-                    children: globalState.panels.map((sizer) => Expanded(
+                    children: globalState.getPanels.map((sizer) => Expanded(
                         child: Container(
                           margin: const EdgeInsets.symmetric( horizontal: 5.0 ),
                           height: 5,

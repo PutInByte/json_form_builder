@@ -1,4 +1,5 @@
 import 'package:json_form_builder/src/contents/components/pager_card_layout.dart';
+import 'package:json_form_builder/src/contents/components/pager_empty_card_layout.dart';
 import 'package:json_form_builder/src/core/states/base/state.dart';
 import 'package:json_form_builder/src/models/builder_model.dart';
 
@@ -9,36 +10,54 @@ class BlockState {
   BlockState({ required BuilderState state }) : _state = state;
 
 
-  final List<Map<String, dynamic>> _blocks = [ ];
-
-  List<Map<String, dynamic>> get blocks => _blocks;
 
 
 
-  Future<List<Map<String, dynamic>>> init () async {
+  Future<void> init () async {
 
-    _blocks.clear();
+    final List<Map<String, dynamic>> panels = _state.getPanels;
+    final List<Map<String, dynamic>> blocks = [ ];
 
-    print(_state.panels);
 
-    for (int index = 0; index < _state.panels.length; index++) {
+    for (int i = 0; i < panels.length; i++) {
 
-      List<Map<String, dynamic>> blocks = _state.block( index );
 
-      for (int i = 0; i < blocks.length; i++)  {
+      List<Map<String, dynamic>>? blocksByPanel = _state.block( i );
 
-          blocks.add({
-            "id": blocks[ i ][ "id" ],
-            'parent': _state.panels[ index ][ "id" ],
-            "block": BuilderModel.fromJson( blocks[ i ] ),
-            'widget': PagerCardLayout( title: "title $i", children: const [ ] ),
-          });
+
+      if (blocksByPanel.isEmpty) {
+
+          blocks.add(
+            <String, dynamic>{
+              'hidden': true,
+              'parent': panels[ i ][ "id" ],
+              'widget': const PagerEmptyCardLayout( ),
+            },
+          );
+
+          continue;
+        }
+
+
+      for (int j = 0; j < blocks.length; j++)  {
+
+
+        blocks.add(
+            <String, dynamic>{
+              "id": blocksByPanel[ j ][ "id" ] as int,
+              "parent": blocksByPanel[ i ][ "id" ] as int,
+              "hidden": blocks.isEmpty,
+              "widget": PagerCardLayout( title: "title $j", children: const [ ] ),
+            },
+        );
 
       }
 
+
     }
 
-    return _blocks;
+
+    _state.blocks = blocks;
 
   }
 
