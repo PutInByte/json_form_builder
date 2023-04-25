@@ -16,28 +16,50 @@ class GlobalState extends ChangeNotifier {
   final BuilderState _state = BuilderState();
 
 
+
   bool _isInitialized = false;
+
   bool get isInitialized => _isInitialized;
 
+
+
   late final PanelState _panelState = PanelState( state: _state );
+
   late final BlockState _blockState = BlockState( state: _state );
+
   late final SeparatorState _separatorState = SeparatorState( state: _state );
 
 
-  final Map<String, List<Map<String, dynamic>>> _content = {
-    "panels": [ ],
-    "blocks": [ ],
-    "separators": [ ],
-  };
+
+  List<Map<String, dynamic>> get getPanels => _state.getPanels;
+
+  List<Map<String, dynamic>> get getBlocks => _state.getBlocks;
+
+  List<Map<String, dynamic>> get getSeparators => _state.getSeparators;
 
 
-  List<Map<String, dynamic>> get panels => _content[ "panels" ]!;
-  List<Map<String, dynamic>> get separators => _content[ "separators" ]!;
+
+  Map<String, dynamic> Function( int id ) get getOnePanel => ( id ) => _state.getOnePanel( id );
+
+  Map<String, dynamic> Function( int id ) get getOneBlock => ( id ) => _state.getOneBlock( id );
+
+  Map<String, dynamic> Function( int id ) get getOneSeparator => ( id ) => _state.getOneSeparator( id );
 
 
-  List<Map<String, dynamic>> Function( int id ) get block => ( id ) => _content[ "blocks" ]?.where(( block ) => block[ "parent" ] == id ).toList() ?? [ ];
 
-  List<Widget> Function( int id ) get blockWidgets => ( id ) => block( id ).map<Widget>(( block ) => block[ "widget" ] ).toList();
+  List<Map<String, dynamic>> Function( int id ) get getBlocksByPanel => ( id ) => _state.getBlocksByPanel( id );
+
+  List<Map<String, dynamic>> Function( int id ) get getSeparatorsByPanel => ( id ) => _state.getSeparatorsByPanel( id );
+
+  List<Map<String, dynamic>> Function( int id ) get getBlocksBySeparator => ( id ) => _state.getBlocksBySeparator( id );
+
+
+
+  List<Widget> Function( int id ) get panelWidgets => ( id ) => _state.panelWidgets( id );
+
+  List<Widget> Function( int id ) get separatorWidgets => ( id ) => _state.separatorWidgets( id );
+
+  List<Widget> Function( int id ) get blockWidgets => ( id ) => _state.blockWidgets( id );
 
 
 
@@ -45,38 +67,24 @@ class GlobalState extends ChangeNotifier {
 
     if ( _isInitialized ) return;
 
+    _state.clear( );
 
-    _updateStates( );
+    _state.data = data[ "data" ];
 
-    await _initStates( data );
+    await Future.wait([
 
-    // await _collect( );
+      _panelState.init(),
+
+      _blockState.init(),
+
+      _separatorState.init(),
+
+    ]);
 
     _isInitialized = true;
 
   }
 
-
-  void _updateStates( ) {
-
-    _content[ "panels" ]?.clear();
-    _content[ "blocks" ]?.clear();
-    _content[ "separators" ]?.clear();
-
-  }
-
-
-  Future<void> _initStates( Map<String, dynamic> data ) async {
-
-    _state.data = data[ "data" ];
-
-    _content[ "panels" ]?.addAll( await _panelState.init() );
-
-    _content[ "blocks" ]?.addAll( await _blockState.init() );
-
-    _content[ "separators" ]?.addAll( await _separatorState.init() );
-
-  }
 
 
 }

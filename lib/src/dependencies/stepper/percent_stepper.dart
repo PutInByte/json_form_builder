@@ -226,8 +226,8 @@ class _PercentStepperState extends State<PercentStepper> with TickerProviderStat
       maxLines: 2,
       textAlign: TextAlign.center,
       overflow: TextOverflow.ellipsis,
-      style: TextStyle(
-        color: _isCurrentIndex(index) ? Colors.white : const Color.fromRGBO(15, 66, 176, 1),
+      style: const TextStyle(
+        color: Colors.white,
         fontSize: 16,
         fontWeight: FontWeight.w400,
       ),

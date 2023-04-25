@@ -18,10 +18,10 @@ class _MyAppState extends State<MyApp> {
   static const Map<String, dynamic> formData = {
     "data": [
       {
-        "conditionFields": [],
+        "conditionFields": [ ],
         "itemOrder": 1,
         "colSpan": 0,
-        "conditionValues": [],
+        "conditionValues": [ ],
         "type": "panel",
         "title": "Общие сведения",
         "version": 0,

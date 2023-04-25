@@ -1,5 +1,6 @@
 import 'package:json_form_builder/src/core/states/base/state.dart';
 
+
 class SeparatorState {
 
   final BuilderState _state;
@@ -7,15 +8,30 @@ class SeparatorState {
   SeparatorState({required BuilderState state}) : _state = state;
 
 
-  final List<Map<String, dynamic>> _separator = [ ];
 
-  List<Map<String, dynamic>> get separator => _separator;
+  Future<void> init () async {
+
+    final List<Map<String, dynamic>> panels = _state.getPanels;
+    final List<Map<String, dynamic>> blocks = _state.getBlocks;
+    final List<Map<String, dynamic>> separators = [ ];
 
 
-  Future<List<Map<String, dynamic>>> init () async {
+    // for (int j = 0; j < blocks.length; j++)  {
+    //
+    //   _blocks.add({
+    //     "id": blocks[ j ][ "id" ],
+    //     "parent": _state.panels[ i ][ "id" ],
+    //     "hidden": _state.block( i ).isEmpty,
+    //     "block": BuilderModel.fromJson( blocks[ j ] ),
+    //     "widget": PagerCardLayout( title: "title $j", children: const [ ] ),
+    //   });
+    //
+    // }
 
 
-    return [];
+
+    _state.separators = separators;
+
 
   }
 

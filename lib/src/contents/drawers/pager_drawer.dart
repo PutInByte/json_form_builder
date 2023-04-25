@@ -92,13 +92,15 @@ class _PagerDrawerState extends State<PagerDrawer> {
 
   void initChildPagers() {
 
-    for (int index = 0; index < globalState.panels.length; index++) {
+    for (int index = 0; index < globalState.getPanels.length; index++) {
 
-      List<Widget> children = globalState.blockWidgets( globalState.panels[ index ][ "id" ] ) ;
+      List<Widget> children = globalState.blockWidgets( globalState.getPanels[ index ][ "id" ] ) ;
+
 
       if (children.isEmpty) {
         children = [ const PagerEmptyCardLayout() ];
       }
+
 
       Widget pager = Pager(
         controller: controller.getChildPageController(index),
