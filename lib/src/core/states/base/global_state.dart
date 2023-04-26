@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_form_builder/src/core/states/extends/field_states.dart';
 import 'state.dart';
 import 'package:json_form_builder/src/core/states/extends/block_states.dart';
 import 'package:json_form_builder/src/core/states/extends/panel_states.dart';
@@ -29,6 +30,8 @@ class GlobalState extends ChangeNotifier {
 
   late final SeparatorState _separatorState = SeparatorState( state: _state );
 
+  late final FieldState _fieldState = FieldState( state: _state );
+
 
 
   List<Map<String, dynamic>> get getPanels => _state.getPanels;
@@ -36,6 +39,8 @@ class GlobalState extends ChangeNotifier {
   List<Map<String, dynamic>> get getBlocks => _state.getBlocks;
 
   List<Map<String, dynamic>> get getSeparators => _state.getSeparators;
+
+  List<Map<String, dynamic>> get getFields => _state.getFields;
 
 
 
@@ -45,13 +50,17 @@ class GlobalState extends ChangeNotifier {
 
   Map<String, dynamic> Function( int id ) get getOneSeparator => ( id ) => _state.getOneSeparator( id );
 
+  Map<String, dynamic> Function( int id ) get getOneField => ( id ) => _state.getOneField( id );
+
 
 
   List<Map<String, dynamic>> Function( int id ) get getBlocksByPanel => ( id ) => _state.getBlocksByPanel( id );
 
-  List<Map<String, dynamic>> Function( int id ) get getSeparatorsByPanel => ( id ) => _state.getSeparatorsByPanel( id );
-
   List<Map<String, dynamic>> Function( int id ) get getBlocksBySeparator => ( id ) => _state.getBlocksBySeparator( id );
+
+  List<Map<String, dynamic>> Function( int id ) get getSeparatorsByBlock => ( id ) => _state.getSeparatorsByBlock( id );
+
+  List<Map<String, dynamic>> Function( int id ) get getFieldsBySeparator => ( id ) => _state.getFieldsBySeparator( id );
 
 
 
@@ -60,6 +69,8 @@ class GlobalState extends ChangeNotifier {
   List<Widget> Function( int id ) get separatorWidgets => ( id ) => _state.separatorWidgets( id );
 
   List<Widget> Function( int id ) get blockWidgets => ( id ) => _state.blockWidgets( id );
+
+  List<Widget> Function( int id ) get fieldWidgets => ( id ) => _state.fieldWidgets( id );
 
 
 
@@ -73,11 +84,13 @@ class GlobalState extends ChangeNotifier {
 
     await Future.wait([
 
-      _panelState.init(),
+      _fieldState.init(),
+
+      _separatorState.init(),
 
       _blockState.init(),
 
-      _separatorState.init(),
+      _panelState.init(),
 
     ]);
 

@@ -1,63 +1,43 @@
-import 'package:json_form_builder/src/contents/components/pager_card_layout.dart';
-import 'package:json_form_builder/src/contents/components/pager_empty_card_layout.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:json_form_builder/src/contents/components/pager_card_folder.dart';
 import 'package:json_form_builder/src/core/states/base/state.dart';
-import 'package:json_form_builder/src/models/builder_model.dart';
+
 
 class BlockState {
 
   final BuilderState _state;
 
-  BlockState({ required BuilderState state }) : _state = state;
-
+  const BlockState({ required BuilderState state }) : _state = state;
 
 
 
 
   Future<void> init () async {
 
-    final List<Map<String, dynamic>> panels = _state.getPanels;
-    final List<Map<String, dynamic>> blocks = [ ];
+    final List<Map<String, dynamic>> blocks = _state.jsonBlocks;
+
+    final List<Map<String, dynamic>> parsedBlocks = [ ];
 
 
-    for (int i = 0; i < panels.length; i++) {
+    for (int i = 0; i < blocks.length; i++) {
 
 
-      List<Map<String, dynamic>>? blocksByPanel = _state.block( i );
+      List<Widget>? children = _state.separatorWidgets( blocks[ i ][ "id" ] as int );
 
 
-      if (blocksByPanel.isEmpty) {
-
-          blocks.add(
-            <String, dynamic>{
-              'hidden': true,
-              'parent': panels[ i ][ "id" ],
-              'widget': const PagerEmptyCardLayout( ),
-            },
-          );
-
-          continue;
-        }
-
-
-      for (int j = 0; j < blocks.length; j++)  {
-
-
-        blocks.add(
-            <String, dynamic>{
-              "id": blocksByPanel[ j ][ "id" ] as int,
-              "parent": blocksByPanel[ i ][ "id" ] as int,
-              "hidden": blocks.isEmpty,
-              "widget": PagerCardLayout( title: "title $j", children: const [ ] ),
-            },
-        );
-
-      }
+      parsedBlocks.add(
+        <String, dynamic>{
+          "id": blocks[ i ][ "id" ] as int,
+          "parent": blocks[ i ][ "dependId" ] as int,
+          "hidden": children.isEmpty,
+          "widget": PagerCardLayoutFolder( children: children ),
+        },
+      );
 
 
     }
 
-
-    _state.blocks = blocks;
+    _state.blocks = parsedBlocks;
 
   }
 
