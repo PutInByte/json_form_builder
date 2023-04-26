@@ -1,21 +1,23 @@
 import 'package:json_form_builder/src/contents/components/pager_card_layout.dart';
-import 'package:json_form_builder/src/core/states/base/state.dart';
+import 'package:json_form_builder/src/core/parsers/parser_abstract.dart';
+import 'package:json_form_builder/src/core/states/state.dart';
 
 
-class FieldState {
-
-  final BuilderState _state;
-
-  const FieldState({ required BuilderState state }) : _state = state;
+class FieldParser implements Parser {
 
 
+  FieldParser({ required BuilderState state }): _state = state;
 
+  late final BuilderState _state;
+
+
+
+  @override
   Future<void> init () async {
 
     final List<Map<String, dynamic>> fields = _state.jsonFields;
 
     final List<Map<String, dynamic>> parsedFields = [ ];
-
 
     for (int i = 0; i < fields.length; i++) {
 
@@ -36,7 +38,6 @@ class FieldState {
     _state.fields = parsedFields;
 
   }
-
 
 
 

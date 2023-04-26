@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:json_form_builder/src/contents/drawers/layout_drawer.dart';
 import 'package:json_form_builder/src/contents/drawers/panel_drawer.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
-import 'package:json_form_builder/src/core/states/base/global_state.dart';
+import 'package:json_form_builder/src/core/states/global_state.dart';
 import 'package:provider/provider.dart';
 import 'contents/components/building_status_page.dart';
 import 'contents/drawers/content_drawer.dart';

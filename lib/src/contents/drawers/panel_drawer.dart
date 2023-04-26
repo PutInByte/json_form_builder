@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/json_form_builder.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
-import 'package:json_form_builder/src/core/states/base/global_state.dart';
+import 'package:json_form_builder/src/core/states/global_state.dart';
 import 'package:json_form_builder/src/core/utils/theme_utils.dart';
 import 'package:json_form_builder/src/dependencies/stepper/addons/stepper_step_addon.dart';
 import 'package:json_form_builder/src/dependencies/stepper/percent_stepper.dart';

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/src/contents/components/pager_card_layout.dart';
-import 'package:json_form_builder/src/core/states/base/state.dart';
+import 'package:json_form_builder/src/core/parsers/parser_abstract.dart';
+import 'package:json_form_builder/src/core/states/state.dart';
 
 
-class SeparatorState {
-
-  final BuilderState _state;
-
-  const SeparatorState({required BuilderState state}) : _state = state;
+class SeparatorParser implements Parser {
 
 
+  SeparatorParser({ required BuilderState state }): _state = state;
+
+  late final BuilderState _state;
+
+
+  @override
   Future<void> init () async {
 
     final List<Map<String, dynamic>> separators = _state.jsonSeparators;
