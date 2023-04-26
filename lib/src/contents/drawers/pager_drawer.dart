@@ -25,7 +25,6 @@ import 'package:json_form_builder/json_form_builder.dart';
 import 'package:json_form_builder/src/contents/components/pager_empty_card_layout.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
 import 'package:json_form_builder/src/controllers/pager_controller.dart';
-import 'package:json_form_builder/src/core/parsers/block_parser.dart';
 import 'package:json_form_builder/src/core/states/base/global_state.dart';
 import 'package:json_form_builder/src/dependencies/pager/pager.dart';
 import 'package:provider/provider.dart';
@@ -92,9 +91,12 @@ class _PagerDrawerState extends State<PagerDrawer> {
 
   void initChildPagers() {
 
-    for (int index = 0; index < globalState.getPanels.length; index++) {
 
-      List<Widget> children = globalState.blockWidgets( globalState.getPanels[ index ][ "id" ] ) ;
+    List<Map<String, dynamic>> panels = globalState.getPanels;
+
+    for (int index = 0; index < panels.length; index++) {
+
+      List<Widget> children = globalState.blockWidgets( panels[ index ][ "id" ] ) ;
 
 
       if (children.isEmpty) {
