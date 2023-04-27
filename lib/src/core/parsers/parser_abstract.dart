@@ -1,6 +1,6 @@
 
 abstract class Parser {
 
-  Future<void> init ();
+  Future<void> init ( );
 
 }

@@ -1,0 +1,3 @@
+[submodule "json_field_builder"]
+	path = json_field_builder
+	url = https://github.com/warioddly/json_field_builder.git

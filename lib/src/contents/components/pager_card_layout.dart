@@ -61,7 +61,6 @@ class PagerCardLayout extends StatelessWidget {
 
 
 
-
         ],
       ),
     );

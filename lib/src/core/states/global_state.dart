@@ -8,13 +8,12 @@ import 'state.dart';
 
 class GlobalState extends ChangeNotifier {
 
-  factory GlobalState() => instance;
-
-  static final GlobalState instance = GlobalState._privateConstructor();
-  GlobalState._privateConstructor();
-
-
   final BuilderState _state = BuilderState();
+
+  factory GlobalState() => instance;
+  static final GlobalState instance = GlobalState._privateConstructor();
+
+  GlobalState._privateConstructor();
 
 
 
