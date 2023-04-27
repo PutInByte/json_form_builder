@@ -38,7 +38,13 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
   @override
   void initState() {
     super.initState();
-    _init();
+
+    _controller.pagerController
+      ..onChanged = widget.config?.eventConfig.onChangeContent
+      ..onStart = widget.config?.eventConfig.onStart
+      ..onEnd = widget.config?.eventConfig.onEnd
+      ..serverSideEvent = widget.config?.eventConfig.serverSideEvent;
+
   }
 
 
@@ -77,15 +83,11 @@ class _JsonFormBuilderState extends State<JsonFormBuilder> {
   }
 
 
-  void _init() {
-
-    _controller.pagerController
-      ..onChanged = widget.config?.eventConfig.onChangeContent
-      ..onStart = widget.config?.eventConfig.onStart
-      ..onEnd = widget.config?.eventConfig.onEnd
-      ..serverSideEvent = widget.config?.eventConfig.serverSideEvent;
-
+  @override
+  void dispose() {
+    _controller.dispose();
+    _builderConfig.dispose();
+    super.dispose();
   }
-
 
 }
