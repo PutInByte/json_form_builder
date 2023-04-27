@@ -25,7 +25,7 @@ import 'package:json_form_builder/json_form_builder.dart';
 import 'package:json_form_builder/src/contents/components/pager_empty_card_layout.dart';
 import 'package:json_form_builder/src/controllers/json_form_controller.dart';
 import 'package:json_form_builder/src/controllers/pager_controller.dart';
-import 'package:json_form_builder/src/core/states/base/global_state.dart';
+import 'package:json_form_builder/src/core/states/global_state.dart';
 import 'package:json_form_builder/src/dependencies/pager/pager.dart';
 import 'package:provider/provider.dart';
 

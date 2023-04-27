@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:json_form_builder/src/core/states/extends/field_states.dart';
+import 'package:json_form_builder/src/core/parsers/block_parser.dart';
+import 'package:json_form_builder/src/core/parsers/field_states.dart';
+import 'package:json_form_builder/src/core/parsers/panel_parser.dart';
+import 'package:json_form_builder/src/core/parsers/separator_states.dart';
 import 'state.dart';
-import 'package:json_form_builder/src/core/states/extends/block_states.dart';
-import 'package:json_form_builder/src/core/states/extends/panel_states.dart';
-import 'package:json_form_builder/src/core/states/extends/separator_states.dart';
 
 
 class GlobalState extends ChangeNotifier {
@@ -24,13 +24,13 @@ class GlobalState extends ChangeNotifier {
 
 
 
-  late final PanelState _panelState = PanelState( state: _state );
+  late final PanelParser _panelState = PanelParser( state: _state );
 
-  late final BlockState _blockState = BlockState( state: _state );
+  late final BlockParser _blockState = BlockParser( state: _state );
 
-  late final SeparatorState _separatorState = SeparatorState( state: _state );
+  late final SeparatorParser _separatorState = SeparatorParser( state: _state );
 
-  late final FieldState _fieldState = FieldState( state: _state );
+  late final FieldParser _fieldState = FieldParser( state: _state );
 
 
 

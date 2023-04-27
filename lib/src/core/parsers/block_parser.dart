@@ -1,61 +1,49 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:json_form_builder/src/contents/components/pager_card_folder.dart';
-import 'package:json_form_builder/src/contents/components/pager_card_layout.dart';
-import 'package:json_form_builder/src/contents/components/pager_empty_card_layout.dart';
-import 'package:json_form_builder/src/models/builder_model.dart';
+import 'package:json_form_builder/src/core/parsers/parser_abstract.dart';
+import 'package:json_form_builder/src/core/states/state.dart';
 
 
-class BlockParser {
+class BlockParser implements Parser {
 
 
-  static List<Widget> parse( List<Map<String, dynamic>> data ) {
+  BlockParser({ required BuilderState state }): _state = state;
 
-    if (data.isEmpty) return const [ PagerEmptyCardLayout() ];
-
-    List<Widget> widgets = [];
-
-    List<BuilderModel> blocks = data.map<BuilderModel>((item) => BuilderModel.fromJson(item)).toList();
-
-    // for (int index = 0; index < blocks.length; index++) {
-    //
-    //   if (blocks[index].items.isNotEmpty) {
-    //
-    //     widgets.add(
-    //         PagerCardLayoutFolder(
-    //         children: _separatorParser( blocks[index].items )
-    //       )
-    //     );
-    //
-    //   }
-    //   else widgets.add( const PagerEmptyCardLayout() );
-    //
-    // }
-
-    return widgets;
-
-  }
+  late final BuilderState _state;
 
 
-  static List<Widget> _separatorParser( List<Map<String, dynamic>> separatorItems ) {
+  @override
+  Future<void> init () async {
 
-    List<Widget> cardLayoutFolder = [];
+    final List<Map<String, dynamic>> blocks = _state.jsonBlocks;
+    final List<Map<String, dynamic>> parsedBlocks = [ ];
 
-    List<BuilderModel> separators = separatorItems.map<BuilderModel>((separator) => BuilderModel.fromJson(separator)).toList();
 
-    for (int j = 0; j < separators.length; j++) {
+    for (int i = 0; i < blocks.length; i++) {
 
-      cardLayoutFolder.add(
-        PagerCardLayout(
-          title: separators[j].title,
-          children: [ Text(separators[j].title) ]
-        )
+
+      List<Widget>? children = _state.separatorWidgets( blocks[ i ][ "id" ] as int );
+
+
+      parsedBlocks.add(
+        <String, dynamic>{
+          "id": blocks[ i ][ "id" ] as int,
+          "parent": blocks[ i ][ "dependId" ] as int,
+          "hidden": children.isEmpty,
+          "widget": PagerCardLayoutFolder( children: children ),
+        },
       );
+
 
     }
 
-    return cardLayoutFolder;
+
+    _state.blocks = parsedBlocks;
 
   }
 
 
+
 }
+
+
