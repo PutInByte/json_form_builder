@@ -98,11 +98,9 @@ class _PagerDrawerState extends State<PagerDrawer> {
 
       List<Widget> children = globalState.blockWidgets( panels[ index ][ "id" ] ) ;
 
-
       if (children.isEmpty) {
         children = [ const PagerEmptyCardLayout() ];
       }
-
 
       Widget pager = Pager(
         controller: controller.getChildPageController(index),

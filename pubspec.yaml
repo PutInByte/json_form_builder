@@ -13,6 +13,10 @@ dependencies:
 #  flutter_web_plugins:
 #    sdk: flutter
 #  plugin_platform_interface: ^2.0.2
+  json_field_builder:
+    git:
+      url: https://github.com/warioddly/json_field_builder.git
+      ref: master
 
   flutter_bloc: ^8.1.2
   form_bloc: ^0.30.0

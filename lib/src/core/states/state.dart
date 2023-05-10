@@ -55,13 +55,13 @@ class BuilderState {
 
   /// Returns a full list of data.
 
-  List<Map<String, dynamic>> get getPanels => _panels.where( ( panel ) => !panel[ "hidden" ] ).toList();
+  List<Map<String, dynamic>> get getPanels => _panels.where( ( panel ) => panel[ "hidden" ] ).toList();
 
-  List<Map<String, dynamic>> get getBlocks => _blocks.where( ( block ) => !block[ "hidden" ] ).toList();
+  List<Map<String, dynamic>> get getBlocks => _blocks.where( ( block ) => block[ "hidden" ] ).toList();
 
-  List<Map<String, dynamic>> get getSeparators => _separators.where( ( sep ) => !sep[ "hidden" ] ).toList();
+  List<Map<String, dynamic>> get getSeparators => _separators.where( ( sep ) => sep[ "hidden" ] ).toList();
 
-  List<Map<String, dynamic>> get getFields => _fields.where( ( field ) => !field[ "hidden" ] ).toList();
+  List<Map<String, dynamic>> get getFields => _fields.where( ( field ) => field[ "hidden" ] ).toList();
 
 
 

@@ -26,7 +26,7 @@ class FieldParser implements Parser {
       parsedFields.add(
         <String, dynamic>{
           "id": fields[ i ][ "id" ] as int,
-          "parent": fields[ i ][ "dependId" ] as int,
+          "parent": fields[ i ][ "parentItem" ][ "id" ] as int,
           "hidden": false,
           "widget": PagerCardLayout( title: "$i", children: const [ ] ),
         },

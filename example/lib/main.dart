@@ -15,8 +15,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
 
-  static const Map<String, dynamic> formData = {
+  static const Map<String, dynamic> formData1 = {
+
     "data": {
+
       "panels": [
         {
           "conditionFields": [ ],
@@ -41,6 +43,7 @@ class _MyAppState extends State<MyApp> {
           "id": 2,
         },
       ],
+
       "blocks": [
         {
           "conditionFields": [],
@@ -79,6 +82,7 @@ class _MyAppState extends State<MyApp> {
           "info": "С помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни."
         },
       ],
+
       "separators": [
         {
           "conditionFields": [],
@@ -129,6 +133,7 @@ class _MyAppState extends State<MyApp> {
           "id": 6,
         },
       ],
+
       "fields": [
         {
           "conditionFields": [],
@@ -266,9 +271,232 @@ class _MyAppState extends State<MyApp> {
           "items": [],
           "fieldType": "User"
         }
+      ],
+
+      "actions": [
+
       ]
+
+    }
+
+  };
+
+  static const Map<String, dynamic> formData = {
+    "data": {
+      "view": {
+        "modelId": 348,
+        "panels": [
+          {
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 1,
+            "name": "Общие сведения"
+          },
+          {
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 2,
+            "name": "Сведения о транспортном средстве"
+          },
+          {
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 3,
+            "name": "Сведения о перевозке товара"
+          }
+        ],
+        "title": "Preliminary information",
+        "model": "com.axelor.apps.sale.db.Declaration",
+        "blocks": [
+          {
+            "panelId": 1,
+            "title": "Первый блок",
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 1,
+            "help": "С помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни."
+          },
+          {
+            "panelId": 1,
+            "title": "Второй блок",
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 2,
+            "help": "С помощью данного электронного сервиса задекларируйте товары, валюту или транспортные средства, которые будут пересекать таможенную границу, распечатайте декларацию и предъявите сотруднику таможни."
+          },
+          {
+            "panelId": 2,
+            "title": "Третий блок",
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 3
+          },
+          {
+            "panelId": 3,
+            "title": "Четвертый блок",
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 4
+          }
+        ],
+        "viewId": 1229,
+        "name": "declaration-flutter-form",
+        "fields": [
+          {
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 1,
+            "name": "piType",
+            "widget": "RadioWidget",
+            "fromEditor": false,
+            "separatorId": 1
+          },
+          {
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 2,
+            "name": "arrivalLocation",
+            "fromEditor": false,
+            "separatorId": 2
+          },
+          {
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 3,
+            "name": "haveOtherOperations",
+            "widget": "boolean-switch",
+            "fromEditor": false,
+            "colSpan": 12,
+            "separatorId": 3
+          }
+        ],
+        "separators": [
+          {
+            "title": "Через какой пункт пропуска и когда планируете прибытие в Кыргызскую Республику?*",
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 1,
+            "blockId": 1
+          },
+          {
+            "title": "Укажите страну регистрации и государственный регистрационный номер транспортных(ого) средств(а)*",
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 2,
+            "blockId": 2
+          },
+          {
+            "title": "Планируете ли Вы поменять траспортное средство при прибытии на пункт пропуска?*",
+            "model": "com.axelor.apps.sale.db.Declaration",
+            "id": 3,
+            "blockId": 2
+          }
+        ]
+      },
+      "fields": [
+        {
+          "defaultValue": false,
+          "name": "haveOtherOperations",
+          "type": "BOOLEAN",
+          "title": "Планируете ли Вы поменять транспортное средство при прибытии на пункт пропуска?"
+        },
+        {
+          "selection": "declaration.select.piType",
+          "defaultValue": 0,
+          "name": "piType",
+          "selectionList": [
+            {
+              "value": "1",
+              "order": 0,
+              "hidden": false,
+              "data": {},
+              "title": "АВТОМОБИЛЬНЫЙ ТРАНСПОРТ"
+            },
+            {
+              "value": "2",
+              "order": 1,
+              "hidden": false,
+              "data": {},
+              "title": "ЖЕЛЕЗНОДОРОЖНЫЙ ТРАНСПОРТ"
+            },
+            {
+              "value": "3",
+              "order": 2,
+              "hidden": false,
+              "data": {},
+              "title": "ВОЗДУШНЫЙ ТРАНСПОРТ"
+            }
+          ],
+          "type": "INTEGER",
+          "title": "Тип транспорта"
+        },
+        {
+          "targetName": "name",
+          "targetSearch": [
+            "name"
+          ],
+          "name": "arrivalLocation",
+          "type": "MANY_TO_ONE",
+          "title": "Наименование пункта пропуска",
+          "target": "com.axelor.apps.sale.db.ArrivalLocation"
+        }
+      ],
+      "depend": {
+        "sourceFieldType": "selection",
+        "priority": 20,
+        "version": 0,
+        "dependencies": {
+          "1": [
+            {
+              "hidden": false,
+              "readonly": false,
+              "required": false,
+              "fieldName": "arrivalLocation"
+            },
+            {
+              "hidden": false,
+              "readonly": false,
+              "required": false,
+              "fieldName": "haveOtherOperations"
+            }
+          ],
+          "2": [
+            {
+              "hidden": true,
+              "readonly": false,
+              "required": false,
+              "fieldName": "arrivalLocation"
+            },
+            {
+              "hidden": true,
+              "readonly": false,
+              "required": false,
+              "fieldName": "haveOtherOperations"
+            }
+          ],
+          "3": [
+            {
+              "hidden": false,
+              "readonly": false,
+              "required": true,
+              "fieldName": "arrivalLocation"
+            },
+            {
+              "hidden": false,
+              "readonly": false,
+              "required": true,
+              "fieldName": "haveOtherOperations"
+            }
+          ]
+        },
+        "importId": null,
+        "viewName": "declaration-flutter-form",
+        "sourceFieldName": "piType",
+        "name": "Пример",
+        "id": 1
+      },
     }
   };
+
+
+  Map<String, dynamic> jsonData = { };
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    jsonData = JsonNormalizer(json: formData).normalize();
+
+  }
 
 
   @override
@@ -277,7 +505,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: JsonFormBuilder(
-          data: formData,
+          data: jsonData,
           config: BuilderConfig(
             pagerConfig: const PagerConfig(
               childrenPhysics: NeverScrollableScrollPhysics(),

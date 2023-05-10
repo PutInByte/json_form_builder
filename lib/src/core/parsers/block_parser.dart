@@ -28,7 +28,7 @@ class BlockParser implements Parser {
       parsedBlocks.add(
         <String, dynamic>{
           "id": blocks[ i ][ "id" ] as int,
-          "parent": blocks[ i ][ "dependId" ] as int,
+          "parent": blocks[ i ][ "parentItem" ][ "id" ] as int,
           "hidden": children.isEmpty,
           "widget": PagerCardLayoutFolder( children: children ),
         },
@@ -36,7 +36,6 @@ class BlockParser implements Parser {
 
 
     }
-
 
     _state.blocks = parsedBlocks;
 
