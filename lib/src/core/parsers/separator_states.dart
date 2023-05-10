@@ -25,13 +25,12 @@ class SeparatorParser implements Parser {
 
       parsedSeparators.add({
         "id": separators[ i ][ "id" ],
-        "parent": separators[ i ][ "dependId" ],
+        "parent": separators[ i ][ "blockId" ],
         "hidden": children.isEmpty,
-        "widget": PagerCardLayout( title: "title $i", children: children ),
+        "widget": PagerCardLayout( title: separators[ i ][ "title" ] ?? "No Title Block", children: children ),
       });
 
     }
-
 
     _state.separators = parsedSeparators;
 

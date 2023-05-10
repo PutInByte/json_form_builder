@@ -79,7 +79,7 @@ class GlobalState extends ChangeNotifier {
 
     _state.clear( );
 
-    _state.data = data[ "data" ];
+    _state.data = data;
 
     await Future.wait([
 
