@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_form_builder/src/core/parsers/block_parser.dart';
-import 'package:json_form_builder/src/core/parsers/field_states.dart';
+import 'package:json_form_builder/src/core/parsers/field_parser.dart';
 import 'package:json_form_builder/src/core/parsers/panel_parser.dart';
 import 'package:json_form_builder/src/core/parsers/separator_states.dart';
 import 'state.dart';

@@ -15,8 +15,8 @@ dependencies:
 #  plugin_platform_interface: ^2.0.2
   json_field_builder:
     git:
-      url: https://github.com/warioddly/json_field_builder.git
-      ref: master
+      url: https://github.com/PutInByte/json_field_builder.git
+      ref: 310a86a
 
   flutter_bloc: ^8.1.2
   form_bloc: ^0.30.0

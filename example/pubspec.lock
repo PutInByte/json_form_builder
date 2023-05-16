@@ -220,9 +220,9 @@ packages:
     dependency: transitive
     description:
       path: "."
-      ref: master
-      resolved-ref: e3a5c163f6b1f043f93be562eaf5d69b2d51d316
-      url: "https://github.com/warioddly/json_field_builder.git"
+      ref: "310a86a"
+      resolved-ref: "310a86af3f35f20279f12f7e3c15097d228435bd"
+      url: "https://github.com/PutInByte/json_field_builder.git"
     source: git
     version: "0.0.1"
   json_form_builder:
