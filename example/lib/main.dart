@@ -281,6 +281,7 @@ class _MyAppState extends State<MyApp> {
 
   };
 
+
   static const Map<String, dynamic> formData = {
     "data": {
       "view": {
@@ -429,60 +430,62 @@ class _MyAppState extends State<MyApp> {
           "target": "com.axelor.apps.sale.db.ArrivalLocation"
         }
       ],
-      "depend": {
-        "sourceFieldType": "selection",
-        "priority": 20,
-        "version": 0,
-        "dependencies": {
-          "1": [
-            {
-              "hidden": false,
-              "readonly": false,
-              "required": false,
-              "fieldName": "arrivalLocation"
-            },
-            {
-              "hidden": false,
-              "readonly": false,
-              "required": false,
-              "fieldName": "haveOtherOperations"
-            }
-          ],
-          "2": [
-            {
-              "hidden": true,
-              "readonly": false,
-              "required": false,
-              "fieldName": "arrivalLocation"
-            },
-            {
-              "hidden": true,
-              "readonly": false,
-              "required": false,
-              "fieldName": "haveOtherOperations"
-            }
-          ],
-          "3": [
-            {
-              "hidden": false,
-              "readonly": false,
-              "required": true,
-              "fieldName": "arrivalLocation"
-            },
-            {
-              "hidden": false,
-              "readonly": false,
-              "required": true,
-              "fieldName": "haveOtherOperations"
-            }
-          ]
+      "depend": [
+        {
+          "sourceFieldType": "selection",
+          "priority": 20,
+          "version": 0,
+          "dependencies": {
+            "1": [
+              {
+                "hidden": false,
+                "readonly": false,
+                "required": false,
+                "fieldName": "arrivalLocation"
+              },
+              {
+                "hidden": false,
+                "readonly": false,
+                "required": false,
+                "fieldName": "haveOtherOperations"
+              }
+            ],
+            "2": [
+              {
+                "hidden": true,
+                "readonly": false,
+                "required": false,
+                "fieldName": "arrivalLocation"
+              },
+              {
+                "hidden": true,
+                "readonly": false,
+                "required": false,
+                "fieldName": "haveOtherOperations"
+              }
+            ],
+            "3": [
+              {
+                "hidden": false,
+                "readonly": false,
+                "required": true,
+                "fieldName": "arrivalLocation"
+              },
+              {
+                "hidden": false,
+                "readonly": false,
+                "required": true,
+                "fieldName": "haveOtherOperations"
+              }
+            ]
+          },
+          "importId": null,
+          "viewName": "declaration-flutter-form",
+          "sourceFieldName": "piType",
+          "name": "Пример",
+          "id": 1
         },
-        "importId": null,
-        "viewName": "declaration-flutter-form",
-        "sourceFieldName": "piType",
-        "name": "Пример",
-        "id": 1
-      },
+      ]
     }
   };
 
@@ -494,7 +497,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    jsonData = JsonNormalizer(json: formData).normalize();
+    jsonData = JsonNormalizer.normalize(formData);
 
   }
 

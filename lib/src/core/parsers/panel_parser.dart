@@ -25,10 +25,11 @@ class PanelParser implements Parser {
         'id': panels[ index ][ "id" ],
         "hidden": blocks.isEmpty,
         "parent": null,
-        'widget': StepperStep( title: panels[ index ][ "title" ] ),
+        'widget': StepperStep( title: panels[ index ][ "name" ] ),
       });
 
     }
+
 
     _state.panels = parsedPanels;
 

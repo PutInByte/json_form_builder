@@ -3,74 +3,64 @@
 
 class JsonNormalizer {
 
-  JsonNormalizer({ required this.json });
+  const JsonNormalizer();
 
-  Map<String, dynamic> json;
-  Map<String, dynamic> normalized = { };
-
-
-  Map<String, dynamic> normalize() {
+  static Map<String, dynamic> normalize(Map<String, dynamic> json) {
 
     json = json[ "data" ];
 
-    _parsePanels();
-    _parseBlocks();
-    _parseSeparators();
+    Map<String, dynamic> data = { };
 
-    print(normalized);
+    data[ "panels" ] = json[ "view" ][ "panels" ];
+    data[ "separators" ] = json[ "view" ][ "separators" ];
+    data[ "blocks" ] = json[ "view" ][ "blocks" ];
+    data[ "fields" ] = _parseFields(json);
 
-    return normalized;
+    return data;
   }
 
+  static List<Map<String, dynamic>> _parseFields(Map<String, dynamic> json) {
+
+    List<Map<String, dynamic>> data = [];
+
+    List<Map<String, dynamic>> fields = json[ "view" ][ "fields" ];
+    List<Map<String, dynamic>> fieldsData = json[ "fields" ];
+    List<Map<String, dynamic>> fieldsDepend = json[ "depend" ];
 
 
-  void _parsePanels() {
+    for (int i = 0; i < fields.length; i++ ) {
 
-    normalized[ "panels" ] = [ ];
+      for (int j = 0; j < fieldsData.length; j++ ) {
 
-    for (int index = 0; index < json[ "view" ][ "panels"].length; index++ ) {
+        if (fields[ i ][ "name" ] == fieldsData[ j ][ "name" ]) {
 
-      normalized[ "panels" ].add(json[ "view" ][ "panels"][ index ]);
+          data.add({ ...fields[ i ], ...fieldsData[ j ] });
+          break;
 
-    }
+        }
 
-  }
-
-
-
-  Map<String, dynamic> _parseFields() {
-    return { };
-  }
-
-
-
-  void _parseSeparators() {
-
-    normalized[ "separators" ] = [ ];
-
-    for (int index = 0; index < json[ "view" ][ "separators"].length; index++ ) {
-
-      normalized[ "separators" ].add(json[ "view" ][ "separators"][ index ]);
-
-    }
-
-  }
-
-
-
-  void _parseBlocks() {
-
-    normalized[ "blocks" ] = [ ];
-
-    for (int index = 0; index < json[ "view" ][ "blocks"].length; index++ ) {
-
-      normalized[ "blocks" ].add(json[ "view" ][ "blocks"][ index ]);
+      }
 
     }
 
 
+    for (int i = 0; i < fields.length; i++ ) {
+      for (int j = 0; j < fieldsDepend.length; j++ ) {
+
+        if (fields[ i ][ "name" ] == fieldsDepend[ j ][ "sourceFieldName" ]) {
+
+          data.add({ ...fields[ i ], ...fieldsDepend[ j ] });
+
+          break;
+
+        }
+
+      }
+    }
+
+
+    return data;
+
   }
-
-
 
 }

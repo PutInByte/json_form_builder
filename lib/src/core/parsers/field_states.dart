@@ -19,6 +19,7 @@ class FieldParser implements Parser {
 
     final List<Map<String, dynamic>> parsedFields = [ ];
 
+
     for (int i = 0; i < fields.length; i++) {
 
       // List<Widget>? children = _state.separatorWidgets( blocks[ i ][ "id" ] as int );
@@ -26,7 +27,7 @@ class FieldParser implements Parser {
       parsedFields.add(
         <String, dynamic>{
           "id": fields[ i ][ "id" ] as int,
-          "parent": fields[ i ][ "parentItem" ][ "id" ] as int,
+          "parent": fields[ i ][ "separatorId" ] as int,
           "hidden": false,
           "widget": PagerCardLayout( title: "$i", children: const [ ] ),
         },
