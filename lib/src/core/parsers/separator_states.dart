@@ -32,6 +32,7 @@ class SeparatorParser implements Parser {
 
     }
 
+
     _state.separators = parsedSeparators;
 
   }

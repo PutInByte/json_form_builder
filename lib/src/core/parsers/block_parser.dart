@@ -24,11 +24,10 @@ class BlockParser implements Parser {
 
       List<Widget>? children = _state.separatorWidgets( blocks[ i ][ "id" ] as int );
 
-
       parsedBlocks.add(
         <String, dynamic>{
           "id": blocks[ i ][ "id" ] as int,
-          "parent": blocks[ i ][ "parentItem" ][ "id" ] as int,
+          "parent": blocks[ i ][ "panelId" ] as int,
           "hidden": children.isEmpty,
           "widget": PagerCardLayoutFolder( children: children ),
         },
